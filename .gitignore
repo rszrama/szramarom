@@ -1,0 +1,6 @@
+gods/*
+player/*
+!README.txt
+src/obj/
+src/rom
+log/*.log
