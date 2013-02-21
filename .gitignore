@@ -4,3 +4,4 @@ player/*
 src/obj/
 src/rom
 log/*.log
+*.komodoproject
