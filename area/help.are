@@ -1172,6 +1172,15 @@ The 'Perms' line shows permanently allocated memory blocks.  There is no limit
 on the number and size of these blocks.
 ~
 
+56 DUMP~
+Syntax: dump
+
+Dump writes three 'dmp' files to the area directory.  The 'mem' dump file
+contains general memory management information while the 'mob' and 'obj'
+dump files contain specific data on mobiles and objects in memory
+respectively.
+~
+
 56 VNUM~
 Syntax: vnum <name>
 	vnum <obj or mob> <name>
