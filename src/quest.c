@@ -17,46 +17,17 @@
 #include <time.h>
 #include "merc.h"
 
+DECLARE_DO_FUN( do_say );
+
 /* Object vnums for Quest Rewards */
 
-#define QUEST_ITEM1 8322
-#define QUEST_ITEM2 8323
-#define QUEST_ITEM3 8324
-#define QUEST_ITEM4 17543
-#define QUEST_ITEM5 8325
+#define QUEST_ITEM1 3390
 
-/* Object vnums for object quest 'tokens'. In Moongate, the tokens are
-   things like 'the Shield of Moongate', 'the Sceptre of Moongate'. These
-   items are worthless and have the rot-death flag, as they are placed
-   into the world when a player receives an object quest. */
+/* Object vnums for object quest 'tokens'. */
 
-#define QUEST_OBJQUEST1 8326
-#define QUEST_OBJQUEST2 8327
-#define QUEST_OBJQUEST3 8328
-#define QUEST_OBJQUEST4 8329
-#define QUEST_OBJQUEST5 8330
-
-struct quest_desc_type {
-  char *name;
-  char *long_descr;
-  char *short_descr;
-};
-
-/* Descriptions of quest items go here:
-Format is: "keywords", "Short description", "Long description" */
-const struct quest_desc_type quest_desc[] =
-{
-    {"quest sceptre", 	"the Sceptre of Courage",
-    "The Sceptre of Courage is lying here, waiting to be returned to its owner."},
-
-    {"quest crown", 	"the Crown of Wisdom",
-    "The Crown of Wisdom is lying here, waiting to be returned to its owner."},
-
-    {"quest gauntlet", 	"the Gauntlets of Strength",
-    "The Gauntlets of Strength are lying here, waiting to be returned to their owner."},
-
-    {NULL, NULL, NULL}
-};
+#define QUEST_OBJQUEST1 3380
+#define QUEST_OBJQUEST2 3381
+#define QUEST_OBJQUEST3 3382
 
 /* Local functions */
 
@@ -64,13 +35,14 @@ void generate_quest     args(( CHAR_DATA *ch, CHAR_DATA *questman ));
 void quest_update       args(( void ));
 bool quest_level_diff   args(( int clevel, int mlevel));
 bool chance             args(( int num ));
+
 ROOM_INDEX_DATA         *find_location( CHAR_DATA *ch, char *arg );
 
 /* CHANCE function. I use this everywhere in my code, very handy :> */
 
 bool chance(int num)
 {
-    if (number_range(1,100) <= num) return TRUE;
+    if (number_range(1, 100) <= num) return TRUE;
     else return FALSE;
 }
 
@@ -219,16 +191,12 @@ void do_quest(CHAR_DATA *ch, char *argument)
     if (!strcmp(arg1, "list"))
     {
         act("$n asks $N for a list of quest items.", ch, NULL, questman, TO_ROOM);
-        act ("You ask $N for a list of quest items.",ch, NULL, questman, TO_CHAR);
+        act("You ask $N for a list of quest items.", ch, NULL, questman, TO_CHAR);
 
         sprintf(buf, "Current Quest Items available for Purchase:\n\r\
-1000qp.........The COMFY CHAIR!!!!!!\n\r\
-850qp..........Sword of Vassago\n\r\
-750qp..........Amulet of Vassago\n\r\
-750qp..........Shield of Vassago\n\r\
-550qp..........Decanter of Endless Water\n\r\
-500qp..........10,000 gold pieces\n\r\
-500qp..........10 Practices\n\r\
+1000qp.........Amulet of Mota\n\r\
+750qp..........10 Practices\n\r\
+500qp..........1,000 gold pieces\n\r\
 To buy an item, type 'QUEST BUY <item>'.\n\r");
 
         send_to_char(buf, ch);
@@ -245,66 +213,10 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
 
         if (is_name(arg2, "amulet"))
         {
-            if (ch->qp_current >= 750)
-            {
-                ch->qp_current -= 750;
-                obj = create_object(get_obj_index(QUEST_ITEM1), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman,buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "shield"))
-        {
-            if (ch->qp_current >= 750)
-            {
-                ch->qp_current -= 750;
-                obj = create_object(get_obj_index(QUEST_ITEM2), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman,buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "sword"))
-        {
-            if (ch->qp_current >= 850)
-            {
-                ch->qp_current -= 850;
-                obj = create_object(get_obj_index(QUEST_ITEM3), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "decanter endless water"))
-        {
-            if (ch->qp_current >= 550)
-            {
-                ch->qp_current -= 550;
-                obj = create_object(get_obj_index(QUEST_ITEM4), ch->level);
-            }
-            else
-            {
-                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
-                do_say(questman, buf);
-                return;
-            }
-        }
-        else if (is_name(arg2, "chair comfy"))
-        {
             if (ch->qp_current >= 1000)
             {
                 ch->qp_current -= 1000;
-                obj = create_object(get_obj_index(QUEST_ITEM5), ch->level);
+                obj = create_object(get_obj_index(QUEST_ITEM1), ch->level);
             }
             else
             {
@@ -315,12 +227,12 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
         }
         else if (is_name(arg2, "practices pracs prac practice"))
         {
-            if (ch->qp_current >= 500)
+            if (ch->qp_current >= 750)
             {
-                ch->qp_current -= 500;
+                ch->qp_current -= 750;
                 ch->practice += 10;
-                act("$N gives 10 practices to $n.", ch, NULL, questman, TO_ROOM);
-                act("$N gives you 10 practices.",   ch, NULL, questman, TO_CHAR);
+                act("$N awards 10 practices to $n.", ch, NULL, questman, TO_ROOM);
+                act("$N awards you 10 practices.", ch, NULL, questman, TO_CHAR);
                 return;
             }
             else
@@ -335,9 +247,9 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
             if (ch->qp_current >= 500)
             {
                 ch->qp_current -= 500;
-                ch->gold += 10000;
-                act("$N gives 10,000 gold pieces to $n.", ch, NULL, questman, TO_ROOM);
-                act("$N has 10,000 in gold transfered from $s Swiss account to your balance.", ch, NULL, questman, TO_CHAR);
+                ch->gold += 1000;
+                act("$N gives 1,000 gold pieces to $n.", ch, NULL, questman, TO_ROOM);
+                act("$N has 1,000 in gold transfered from $s Swiss account to your balance.", ch, NULL, questman, TO_CHAR);
                 return;
             }
             else
@@ -420,8 +332,8 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
             {
                 int reward, pointreward, pracreward;
 
-                reward = number_range(25, 450);
-                pointreward = number_range(25, 75);
+                reward = number_range(25, 75);
+                pointreward = number_range(15, 50);
 
                 sprintf(buf, "Congratulations on completing your quest!");
                 do_say(questman,buf);
@@ -430,7 +342,7 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
 
                 if (chance(15))
                 {
-                    pracreward = number_range(1,3);
+                    pracreward = number_range(1, 3);
                     sprintf(buf, "You gain %d practices!\n\r", pracreward);
                     send_to_char(buf, ch);
                     ch->practice += pracreward;
@@ -467,8 +379,8 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
                 {
                     int reward, pointreward, pracreward;
 
-                    reward = number_range(25, 450);
-                    pointreward = number_range(25, 75);
+                    reward = number_range(25, 75);
+                    pointreward = number_range(15, 50);
 
                     act("You hand $p to $N.", ch, obj, questman, TO_CHAR);
                     act("$n hands $p to $N.", ch, obj, questman, TO_ROOM);
@@ -626,7 +538,7 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
     {
         int objvnum = 0;
 
-        switch(number_range(0, 4))
+        switch(number_range(0, 2))
         {
             case 0:
             objvnum = QUEST_OBJQUEST1;
@@ -638,14 +550,6 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
 
             case 2:
             objvnum = QUEST_OBJQUEST3;
-            break;
-
-            case 3:
-            objvnum = QUEST_OBJQUEST4;
-            break;
-
-            case 4:
-            objvnum = QUEST_OBJQUEST5;
             break;
         }
 
@@ -688,10 +592,6 @@ void generate_quest(CHAR_DATA *ch, CHAR_DATA *questman)
         {
             sprintf(buf, "Seek %s out somewhere in the vicinity of %s!", victim->short_descr, room->name);
             do_say(questman, buf);
-
-            /* I changed my area names so that they have just the name of the area
-               and none of the level stuff. You may want to comment these next two
-               lines. - Vassago */
 
             sprintf(buf, "That location is in the general area of %s.", room->area->name);
             do_say(questman, buf);
@@ -755,6 +655,8 @@ void quest_update(void)
                     ch->questgiver = NULL;
                     ch->countdown = 0;
                     ch->questmob = 0;
+
+                    // @todo destory the quest item.
                 }
                 if (ch->countdown > 0 && ch->countdown < 6)
                 {
