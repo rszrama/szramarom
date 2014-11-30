@@ -11,13 +11,55 @@ Syntax: qmconfig [show|ansiprompt|ansicolor|telnetga] [on|off]
         show       - show current settings of qmconfig variables
         telnetga   - do new logins have telnetga enabled?
 ~
+0 QUEST QUESTS~
+Certain characters in the game will allow you to go on quests to recover an
+item or kill another mob. To go on a quest, you must be in the same room with
+a questmaster. When you successfully complete a quest, you will receive a
+certain number of quest points. These points may be saved up and used to buy
+incredible items from the questmaster.
+
+The QUEST command is used for information about your current quest, to request
+a quest from a questmaster, etc. Commands are as follows:
+
+QUEST POINTS - Gives your current number of quest points. This command may be
+used anywhere.
+
+QUEST INFO - If you are on a quest, this will remind you who or what you are
+after.
+
+QUEST TIME - Gives the amount of time remaining on your current quest, or the
+amount of time until you can request another quest. This command may be used
+anywhere.
+
+QUEST REQUEST - Petitions the questmaster to send you on a quest. If you
+accept the quest, you will be given a realtime limit (in minutes) in which you
+must complete the quest. If you are on a quest to kill a creature, when you
+come across that creature you will see a [TARGET] notice before it. This is
+the creature you are to kill.
+
+QUEST COMPLETE - Once you have completed your quest and recovered the item or
+killed the mob or whatever, you must return to the questmaster who sent you on
+the quest and use this command. If you have successfully completed your quest,
+he will reward you with gold and quest points. Once you complete a quest you
+cannot request another for 10 minutes.
+
+QUEST GIVEUP - Informs your questmaster that you must abandond your quest. Do
+this to save time if you know you cannot complete the task set before you. You
+will not be able to quest again for 15 minutes.
+
+QUEST LIST - Displays the list of fabulous items for sale by the questmaster.
+These items are not buyable via gold, they must be purchased with quest points.
+
+QUEST BUY <item> - Purchases an item from the questmaster and deducts the cost
+of the item from your quest points.
+~
 0 COLOUR COLOR ANSI~
 Syntax: colour    Toggles colour mode on/off
 
         You may also talk in colour; the format is like this:
         the 'escape character' to specify a colour is the left
         handed brace '{{', following
-        that you should use one of the following letters,  
+        that you should use one of the following letters,
         {r{{r     red      {c{{c     cyan
         {g{{g     green    {y{{y     yellow
         {b{{b     blue     {w{{w     white
@@ -39,7 +81,7 @@ Syntax: colour <field> <colour>
         You may configure your colour setting for personal preference.
         current setting are indicated by colour.
 
-fields are:                                    
+fields are:
   {ttext         {aauction      {dgossip       {emusic        {qquestion
   {fanswer       {hclass_text   {Hclass_name   {iimmtalk_text
 
@@ -79,7 +121,7 @@ Developed at: DIKU -- The Department of Computer Science
 -1 GOLD SILVER MONEY~
 Midgaard's economy is based on gold and silver coinage (and the lowly copper,
 which you as an adventurer are far too proud to carry).  Gold coins are worth
-100 silver coins, but are also four times as heavy (25 to the pound, as 
+100 silver coins, but are also four times as heavy (25 to the pound, as
 opposed to 100 to the pound for silver). Gems can be bought to alleviate weight problems
 from the Midgaard jeweller, he charges a mere 10% more than they are worth.
 10 gems weigh one pound, and they can be worth more than 100 gold pieces for
@@ -89,7 +131,7 @@ the highest quality stones.
 0 BRIEF COMPACT~
 Brief and compact help set your display options for the game. Typing brief
 toggles on and off the showing of room descriptions when you move around
-(considerably reducing the text to be processed), and typing compact 
+(considerably reducing the text to be processed), and typing compact
 removes the extra blank line before your prompt.
 ~
 
@@ -97,7 +139,7 @@ removes the extra blank line before your prompt.
 The deaf toggle turns off incoming tells, helpfull if you are being bombarded
 by messages from other players.  You can still use reply (see 'help reply') to
 reply to people who were telling you before you went deaf, although you
-cannot reply to a deaf person unless you or they are a diety (it's mostly 
+cannot reply to a deaf person unless you or they are a diety (it's mostly
 useful for sending a quick "I'm being spammed so I went deaf" message to
 a person).
 ~
@@ -118,13 +160,13 @@ reading them).
 Syntax: prompt
 Syntax: prompt all
 Syntax: prompt <%*>
- 
+
 PROMPT with out an argument will turn your prompt on or off.
- 
+
 PROMPT ALL will give you the standard "<hits mana moves>" prompt.
- 
+
 PROMPT <%*> where the %* are the various variables you may set yourself.
- 
+
         %h :  Display your current hits
         %H :  Display your maximum hits
         %m :  Display your current mana
@@ -141,10 +183,10 @@ PROMPT <%*> where the %* are the various variables you may set yourself.
 	%c :  Display a carriage return (useful for multi-line prompts)
         %R :  Display the vnum you are in (IMMORTAL ONLY)
         %z :  Display the area name you are in (IMMORTAL ONLY)
- 
+
 Example:  PROMPT <%hhp %mm %vmv>
         Will set your prompt to "<10hp 100m 100mv>"
- 
+
 ~
 -1 SUMMARY~
 MOVEMENT                            GROUP
@@ -179,7 +221,7 @@ Any spells which were affecting you are canceled by death.
 
 Following and groups are not affected by death.
 
-You lose experience points for dying.  The amount you lose is two-thirds of 
+You lose experience points for dying.  The amount you lose is two-thirds of
 the way back to the beginning of your level.
 
 Corpses decay after time, and the objects inside corpses decay with them.
@@ -192,7 +234,7 @@ from a player's corpse.
 
 
 0 EXPERIENCE LEVEL XP~
-Your character advances in power by gaining experience.  You need a set 
+Your character advances in power by gaining experience.  You need a set
 amount of experience points for each level based on your creation points.
 
 You gain experience by:
@@ -215,7 +257,7 @@ lately; and some random variation.
 
 
 0 PET PETS~
-You can buy pets in the pet shop.  You may own only one pet at a time, after 
+You can buy pets in the pet shop.  You may own only one pet at a time, after
 the old one dies you may purchase a replacement.
 
 New pets are planned for a shop in New Thalos.
@@ -318,14 +360,14 @@ INVENTORY lists your inventory.
 0 COMPARE~
 Syntax: compare <object-1> <object-2>
 Syntax: compare <object>
- 
+
 COMPARE compares two objects in your inventory.  If both objects are weapons,
 it will report the one with the better average damage.  If both objects are
 armor, it will report the one with the better armor class.
- 
+
 COMPARE with one argument compares an object in your inventory to the object
 you are currently wearing or wielding of the same type.
- 
+
 COMPARE doesn't consider any special modifiers of the objects.
 ~
 
@@ -379,7 +421,7 @@ Syntax: sleep
 Syntax: stand
 Syntax: wake
 
-These commands change your position.  When you REST or SLEEP, you 
+These commands change your position.  When you REST or SLEEP, you
 regenerate hit points, mana points, and movement points faster.
 However, you are more vulnerable to attack, and if you SLEEP,
 you won't hear many things happen.
@@ -417,8 +459,8 @@ note list [number]                      Shows up to number notes.
 note write                              Posts a note.
 note catchup                            Marks all notes in this board read.
 
-These commands are used for the new note system. Instead of just one board, 
-there are several, each with its special purpose. 
+These commands are used for the new note system. Instead of just one board,
+there are several, each with its special purpose.
 
 Changing between the boards is accomplished using the BOARD command. BOARD
 without any arguments gives you a list of all boards together with number of
@@ -426,11 +468,11 @@ unread message. To change, type BOARD <number> or BOARD <name of the board>.
 
 To read next unread note, type NOTE. To read a note with a specified number,
 type NOTE READ <number>. Typing NOTE while in a board with no unread notes
-shifts you to the next board. Note that unlike the standard note system, a 
+shifts you to the next board. Note that unlike the standard note system, a
 note has the same number in NOTE LIST and NOTE READ.
 
-Posting a message is as simple as writing NOTE WRITE. You will be moved 
-into interactive mode, where all you see are prompts for the fields like 
+Posting a message is as simple as writing NOTE WRITE. You will be moved
+into interactive mode, where all you see are prompts for the fields like
 To:, From: etc. You will be automatically put AFK while writing a note.
 
 To see the list of the notes in the current board, type NOTE LIST. Typing
@@ -458,7 +500,7 @@ Syntax: yell    <message>
 SHOUT sends a message to all awake players in the world.  To curb excessive
 shouting, SHOUT imposes a three-second delay on the shouter.
 
-GOSSIP and CGOSSIP are variants of SHOUT (without the delay).  '.' is a 
+GOSSIP and CGOSSIP are variants of SHOUT (without the delay).  '.' is a
 synonym for GOSSIP.
 
 YELL sends a message to all awake players within your area.
@@ -559,12 +601,12 @@ Syntax: who <class or race> <level-range> <clan name>
 
 WHO shows the people currently in the game.  Some people may choose to
 remain unseen and won't appear on the WHO
- 
+
 WHO without any arguments shows all of the (visible) people currently playing.
 
 With arguments, WHO can show players of certain classes or levels.
 For example:
- 
+
 who 10          lists all players of level 10 or above
 who 15 20       lists all players between level 15 and 20
 who cleric      lists all clerics playing
@@ -606,7 +648,7 @@ all the commands, spells, and skills listed in the game.
 0 DESCRIPTION DESC~
 Syntax: description <string>
 Syntax: description + <string>
-Syntax: description - 
+Syntax: description -
 
 Sets your long description to the given string.  If the description string
 starts with a '+', the part after the '+' is appended to your current
@@ -692,7 +734,7 @@ When multiple items of the same name are listed, type 'buy n.item', where n
 is the position of the item in a list of that name.  So if there are two
 swords, buy 2.sword will buy the second. If you want to buy multiples of
 an item, use an * (buy 5*pie will buy 5 pies).  These can be combined into
-(for example) buy 2*2.shield, as long as the * is first.  
+(for example) buy 2*2.shield, as long as the * is first.
 
 LIST lists the objects the shop keeper will sell you.
 List <name> shows you only objects of that name.
@@ -713,7 +755,7 @@ The nature of the reward depends upon the type of object.
 Syntax: scroll
 Syntax: scroll <number>
 
-This command changes the number of lines the mud sends you in a page (the 
+This command changes the number of lines the mud sends you in a page (the
 default is 24 lines).  Change this to a higher number for larger screen
 sizes, or to 0 to disabling paging.
 ~
@@ -788,7 +830,7 @@ will block all other command for about 20 seconds, so use it sparingly.
 
 Some objects, such as keys and potions, may not be saved.
 
-QUIT leaves the game.  You may QUIT anywhere.  When you re-enter the game 
+QUIT leaves the game.  You may QUIT anywhere.  When you re-enter the game
 you will be back in the same room.
 
 QUIT automatically does a SAVE, so you can safely leave the game with just one
@@ -807,7 +849,7 @@ back to the Temple of Midgaard.  '/' is a synonym for RECALL.
 
 If you RECALL during combat, you will lose experience (more than for fleeing),
 and you will have a chance of failing (again, more than for fleeing).  This
-chance is based on your recall skill, although a 100% recall does not 
+chance is based on your recall skill, although a 100% recall does not
 insure success.
 
 RECALL costs half of your movement points.
@@ -906,7 +948,7 @@ the ban list, if the remover is of equal or higher level than the banner.
 
 A site may have all players, new players, or non-permitted players (set
 by editing the player file) banned, by changing the argument after the site.
-*s may be used to ban either by suffix (*.edu), prefix (labmac*), or 
+*s may be used to ban either by suffix (*.edu), prefix (labmac*), or
 content (*andrews*), but be careful not to accidently lock out too many
 sites with a wildcard.  Bans do not save unless the permban command is used.
 ~
@@ -957,7 +999,7 @@ players.
 Syntax: freeze <name>
 
 FREEZE <character> is a toggle which prevents a character from issuing any
-commands at all. It can be removed from within the game, so freezing a 
+commands at all. It can be removed from within the game, so freezing a
 troublemaker is usually a better option than they deny command.
 ~
 
@@ -968,7 +1010,7 @@ Syntax: force all <command>
 FORCE forces one character to execute a command, except of course delete.
 
 Below level 57 (Deity) force can only be used on mobiles, and force all is
-unavailable.  You also cannot 'force orc murder hugo', for example. 
+unavailable.  You also cannot 'force orc murder hugo', for example.
 
 FORCE 'all' forces all player characters to execute a command.
 This is typically used for 'force all save'.
@@ -976,11 +1018,11 @@ This is typically used for 'force all save'.
 
 56 SOCKETS~
 Syntax: sockets
-	sockets <name> 
+	sockets <name>
 
-SOCKETS reports all of the visible users connected to the server, including 
-users in the process of logging in.  The two numbers inside brackets are the 
-channel number and the 'connected' state.  The 'connected' states are listed in 
+SOCKETS reports all of the visible users connected to the server, including
+users in the process of logging in.  The two numbers inside brackets are the
+channel number and the 'connected' state.  The 'connected' states are listed in
 merc.h: 0 is CON_PLAYING; non-zero values are various states of logging in.
 
 The optional name argument shows the site of a player, or optional can be used
@@ -992,7 +1034,7 @@ into an orc).
 Syntax: load mob <vnum>
 	load obj <vnum> <level>
 
-The load command is used to load new objects or mobiles (use clone to 
+The load command is used to load new objects or mobiles (use clone to
 duplicate strung items and mobs).  The vnums can be found with the vnum
 command, or by stat'ing an existing mob or object.
 
@@ -1092,9 +1134,9 @@ Syntax: transfer <character>
 	transfer all         <location>
 
 Transfer transfers the target character, or ALL player characters,
-to your current location (default) or to a specified location. Trans all 
+to your current location (default) or to a specified location. Trans all
 should almost never be used, as 100 players popping into one room can have
-horrible effects on slow links. Teleport is a synonym for transfer. 
+horrible effects on slow links. Teleport is a synonym for transfer.
 ~
 
 54 AT~
@@ -1146,7 +1188,7 @@ easily.  Without holy light, you can see what mortal players see.
 
 Wizinvis takes a level argument, and will mke you invisible to all players of
 a lower level than your invisibility level.  It defaults to the maximum
-(your level) if no argument is given.  Wizi 60 characters are totally 
+(your level) if no argument is given.  Wizi 60 characters are totally
 invisible.
 ~
 
@@ -1155,7 +1197,7 @@ Toggling your incognito status will hide your presence from people outside the
 room you are in, but leave you visible to those who are with you.  It takes
 a level argument similar to wizinvis, people at that level or higher can see
 you regarless of location.
-~ 
+~
 
 52 MEMORY~
 Syntax: memory
@@ -1201,7 +1243,7 @@ Syntax: stat <name>
 
 The stat command gives you detailed information on an object, mobile, or room
 within the game.  Without a class argument, the command will return a object
-(if found), a mobile (if no object exists, but a mobile does), or a room 
+(if found), a mobile (if no object exists, but a mobile does), or a room
 (if a number is  given).  Stat room with no argument stats the room you are
 standing in.  Stat can be used to find room vnums for goto.
 (see also goto, transfer)
@@ -1236,7 +1278,7 @@ Poofin and poofout only show to characters who can see you.
 59 PROTECT~
 Syntax: protect <character>
 
-Protect is used to protect a character from unwanted snooping.  Removing 
+Protect is used to protect a character from unwanted snooping.  Removing
 protected status from a character WILL be seen by that character.
 ~
 
@@ -1284,14 +1326,14 @@ turns it back on).
 ~
 
 52 WIZNET~
-Syntax: wiznet 
+Syntax: wiznet
 	wiznet show
 	wiznet status
 	wiznet <field>
 
 Wiznet is sort of an immortal news service, to show important events to
-the wiznetted immoral.  Wiznet by itself turns wiznet on and off, 
-wiznet show lists all settable flags (they are not detailed here), 
+the wiznetted immoral.  Wiznet by itself turns wiznet on and off,
+wiznet show lists all settable flags (they are not detailed here),
 wiznet status shows your current wiznet settings, and wiznet <field> toggles
 a field on and off.  The events should be self-explanatory, if they are not,
 fiddle with them a while.  More events are available at higher levels.
@@ -1488,13 +1530,13 @@ dangerous for casters who are not pure of heart.
 0 'DISPEL MAGIC' CANCELLATION~
 Syntax: cast 'dispel magic' <character>
         cast 'cancellation' <characte>
- 
+
 Both of these spells remove magical effects from the target.  Dispel magic
 has a reduced chance of working, and is considering an attack spell.
 Cancellation can only be used on allies, but is much more effective and does
 not provoke attack.  Unfortunately, the spells do not discriminate between
 harmful and benign spells.
- 
+
 The chance of dispelling is based on the level of the spell. Permanent spells
 (such as mobile sanctuary) are much harder to remove.  Not all spells may
 be dispelled, notable examples are poison and plague.
@@ -1572,7 +1614,7 @@ This spell enables the target character to see warm-blooded creatures even
 while in the dark, and exits of a room as well.
 ~
 
-0 INVIS 'MASS INVIS' INVISIBLITY~ 
+0 INVIS 'MASS INVIS' INVISIBLITY~
 Syntax: cast 'invisibility' <character>
 Syntax: cast 'invisibility' <object>
 Syntax: cast 'mass invis'
@@ -1609,7 +1651,7 @@ Syntax: cast poison <object>
 
 This spell reduces the strength of the victim by two, as well as reducing the
 victim's regeneration rate. It may also be used to poison food, drink, or
-a weapon in a fashion similar to envenom ('help envenom'), but with 
+a weapon in a fashion similar to envenom ('help envenom'), but with
 drastically reduced effectiveness.
 ~
 

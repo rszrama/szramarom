@@ -422,7 +422,10 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
             break;
     }
 
-    strcat (buf, "\n\r");
+    if (IS_NPC(victim) && ch->questmob > 0 && victim->pIndexData->vnum == ch->questmob)
+      strcat(buf, "{M[TARGET]{x ");
+
+    strcat(buf, "\n\r");
     buf[0] = UPPER (buf[0]);
     send_to_char (buf, ch);
     return;
@@ -2945,5 +2948,3 @@ void do_telnetga (CHAR_DATA * ch, char *argument)
 		SET_BIT (ch->comm, COMM_TELNET_GA);
 	}
 }
-
-

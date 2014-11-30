@@ -242,6 +242,14 @@ void fwrite_char (CHAR_DATA * ch, FILE * fp)
         fprintf (fp, "Prac %d\n", ch->practice);
     if (ch->train != 0)
         fprintf (fp, "Trai %d\n", ch->train);
+    if (ch->qp_current != 0)
+        fprintf( fp, "QPCurrent %d\n", ch->qp_current);
+    if (ch->qp_current != 0)
+        fprintf( fp, "QPTotal %d\n", ch->qp_total);
+    if (ch->nextquest != 0)
+        fprintf( fp, "QuestNext %d\n", ch->nextquest);
+    else if (ch->countdown != 0)
+        fprintf( fp, "QuestNext %d\n", 10);
     if (ch->saving_throw != 0)
         fprintf (fp, "Save  %d\n", ch->saving_throw);
     fprintf (fp, "Alig  %d\n", ch->alignment);
@@ -1356,6 +1364,12 @@ void fread_char (CHAR_DATA * ch, FILE * fp)
                 KEY ("Prac", ch->practice, fread_number (fp));
                 KEYS ("Prompt", ch->prompt, fread_string (fp));
                 KEY ("Prom", ch->prompt, fread_string (fp));
+                break;
+
+            case 'Q':
+                KEY("QPCurrent", ch->qp_current, fread_number(fp));
+                KEY("QPTotal", ch->qp_total, fread_number(fp));
+                KEY("QuestNext", ch->nextquest, fread_number(fp));
                 break;
 
             case 'R':

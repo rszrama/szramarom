@@ -888,7 +888,7 @@ void char_update (void)
     	 */
     	if (!IS_VALID(ch))
     	{
-        	bug("update_char: Trying to work with an invalidated character.\n",0); 
+          bug("update_char: Trying to work with an invalidated character.\n",0);
         	break;
      	}
 
@@ -1165,25 +1165,26 @@ void update_handler (void)
     {
         pulse_area = PULSE_AREA;
         /* number_range( PULSE_AREA / 2, 3 * PULSE_AREA / 2 ); */
-        area_update ();
+        area_update();
+        quest_update();
     }
 
     if (--pulse_music <= 0)
     {
         pulse_music = PULSE_MUSIC;
-        song_update ();
+        song_update();
     }
 
     if (--pulse_mobile <= 0)
     {
         pulse_mobile = PULSE_MOBILE;
-        mobile_update ();
+        mobile_update();
     }
 
     if (--pulse_violence <= 0)
     {
         pulse_violence = PULSE_VIOLENCE;
-        violence_update ();
+        violence_update();
     }
 
     if (--pulse_point <= 0)
@@ -1191,12 +1192,13 @@ void update_handler (void)
         wiznet ("TICK!", NULL, NULL, WIZ_TICKS, 0, 0);
         pulse_point = PULSE_TICK;
 /* number_range( PULSE_TICK / 2, 3 * PULSE_TICK / 2 ); */
-        weather_update ();
-        char_update ();
-        obj_update ();
+        weather_update();
+        char_update();
+        obj_update();
     }
 
-    aggr_update ();
-    tail_chain ();
+    aggr_update();
+    tail_chain();
+
     return;
 }
