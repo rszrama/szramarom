@@ -255,6 +255,8 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
 
     buf[0] = '\0';
 
+    if (IS_NPC(victim) && ch->questmob > 0 && victim->pIndexData->vnum == ch->questmob)
+        strcat(buf, "{R[TARGET]{x ");
     if (IS_SET (victim->comm, COMM_AFK))
         strcat (buf, "[AFK] ");
     if (IS_AFFECTED (victim, AFF_INVISIBLE))
@@ -421,9 +423,6 @@ void show_char_to_char_0 (CHAR_DATA * victim, CHAR_DATA * ch)
                 strcat (buf, "someone who left??");
             break;
     }
-
-    if (IS_NPC(victim) && ch->questmob > 0 && victim->pIndexData->vnum == ch->questmob)
-      strcat(buf, "{M[TARGET]{x ");
 
     strcat(buf, "\n\r");
     buf[0] = UPPER (buf[0]);
