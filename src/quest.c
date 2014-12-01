@@ -317,7 +317,7 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
     else if (!strcmp(arg1, "complete"))
     {
         act("$n informs $N $e has completed $s quest.", ch, NULL, questman, TO_ROOM);
-        act("You inform $N you have completed $s quest.", ch, NULL, questman, TO_CHAR);
+        act("You inform $N you have completed your quest.", ch, NULL, questman, TO_CHAR);
 
         if (ch->questgiver != questman)
         {
