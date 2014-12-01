@@ -1518,6 +1518,23 @@ void bust_a_prompt (CHAR_DATA * ch)
                 sprintf (buf2, "%ld", ch->silver);
                 i = buf2;
                 break;
+            case 'q':
+                sprintf (buf2, "%d", ch->qp_current);
+                i = buf2;
+                break;
+            case 'Q':
+                sprintf (buf2, "%d", ch->qp_total);
+                i = buf2;
+                break;
+            case 't':
+                if (ch->countdown > 0)
+                    sprintf (buf2, "%d", ch->countdown);
+                else if (ch->nextquest > 0)
+                    sprintf (buf2, "%d", ch->nextquest);
+                else
+                    sprintf (buf2, "0");
+                i = buf2;
+                break;
             case 'a':
                 if (ch->level > 9)
                     sprintf (buf2, "%d", ch->alignment);

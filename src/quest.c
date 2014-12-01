@@ -249,7 +249,7 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
                 ch->qp_current -= 500;
                 ch->gold += 1000;
                 act("$N gives 1,000 gold pieces to $n.", ch, NULL, questman, TO_ROOM);
-                act("$N has 1,000 in gold transfered from $s Swiss account to your balance.", ch, NULL, questman, TO_CHAR);
+                act("$N hands over a cool 1,000 gold pieces.", ch, NULL, questman, TO_CHAR);
                 return;
             }
             else

@@ -946,8 +946,8 @@ void do_prompt (CHAR_DATA * ch, char *argument)
         strcpy (buf, "<%hhp %mm %vmv> ");
     else
     {
-        if (strlen (argument) > 50)
-            argument[50] = '\0';
+        if (strlen (argument) > 75)
+            argument[75] = '\0';
         strcpy (buf, argument);
         smash_tilde (buf);
         if (str_suffix ("%c", buf))
@@ -1559,19 +1559,7 @@ void do_score (CHAR_DATA * ch, char *argument)
                ch->qp_current, ch->qp_total);
         send_to_char(buf, ch);
 
-        if (ch->nextquest > 0)
-        {
-            if (ch->nextquest == 1)
-            {
-                send_to_char("{MYou can quest again in 1 minute.{x\n\r", ch);
-            }
-            else
-            {
-                sprintf(buf, "{MYou can quest again in %d minutes.{x\n\r", ch->nextquest);
-                send_to_char(buf, ch);
-            }
-        }
-        else if (ch->countdown > 0)
+        if (ch->countdown > 0)
         {
             if (ch->countdown == 1)
             {
@@ -1581,6 +1569,18 @@ void do_score (CHAR_DATA * ch, char *argument)
             {
                 sprintf(buf, "{MHurry! You only have %d more minutes to complete your quest.{x\n\r",
                         ch->countdown);
+                send_to_char(buf, ch);
+            }
+        }
+        else if (ch->nextquest > 0)
+        {
+            if (ch->nextquest == 1)
+            {
+                send_to_char("{MYou can quest again in 1 minute.{x\n\r", ch);
+            }
+            else
+            {
+                sprintf(buf, "{MYou can quest again in %d minutes.{x\n\r", ch->nextquest);
                 send_to_char(buf, ch);
             }
         }
