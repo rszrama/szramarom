@@ -3379,7 +3379,7 @@ void do_mset (CHAR_DATA * ch, char *argument)
         send_to_char ("    str int wis dex con sex class level\n\r", ch);
         send_to_char ("    race group gold silver hp mana move prac\n\r", ch);
         send_to_char ("    align train thirst hunger drunk full\n\r", ch);
-        send_to_char ("    security hours\n\r", ch);
+        send_to_char ("    security hours qp nextquest\n\r", ch);
         return;
     }
 
@@ -3760,37 +3760,91 @@ void do_mset (CHAR_DATA * ch, char *argument)
         return;
     }
 
-	if (!str_prefix (arg2, "hours"))
-	{
-		if (IS_NPC (victim))
-		{
-			send_to_char ("Not on NPC's.\n\r", ch);
-			return;
-		}
+    if (!str_prefix(arg2, "hours"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("Not on NPCs.\n\r", ch);
+            return;
+        }
 
-		if (!is_number (arg3))
-		{
-			send_to_char ("Value must be numeric.\n\r", ch);
-			return;
-		}
+        if (!is_number(arg3))
+        {
+            send_to_char("Value must be numeric.\n\r", ch);
+            return;
+        }
 
-		value = atoi (arg3);
+        value = atoi(arg3);
 
-		if (value < 0 || value > 999)
-		{
-			send_to_char ("Value must be between 0 and 999.\n\r", ch);
-			return;
-		}
+        if (value < 0 || value > 999)
+        {
+            send_to_char("Value must be between 0 and 999.\n\r", ch);
+            return;
+        }
 
-		victim->played = ( value * 3600 );
-		printf_to_char(ch, "%s's hours set to %d.", victim->name, value);
+        victim->played = (value * 3600);
+        printf_to_char(ch, "%s's hours set to %d.", victim->name, value);
 
-		return;
-	}
-	
-    /*
-     * Generate usage message.
-     */
+        return;
+    }
+
+    if (!str_prefix(arg2, "qp"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("Not on NPCs.\n\r", ch);
+            return;
+        }
+
+        if (!is_number(arg3))
+        {
+            send_to_char("Value must be numeric.\n\r", ch);
+            return;
+        }
+
+        value = atoi(arg3);
+
+        if (value < 0 || value > 9999)
+        {
+            send_to_char("Value must be between 0 and 9999.\n\r", ch);
+            return;
+        }
+
+        victim->qp_current = value;
+        printf_to_char(ch, "%s's current questpoints set to %d.", victim->name, value);
+
+        return;
+    }
+
+    if (!str_prefix(arg2, "nextquest"))
+    {
+        if (IS_NPC(victim))
+        {
+            send_to_char("Not on NPCs.\n\r", ch);
+            return;
+        }
+
+        if (!is_number(arg3))
+        {
+            send_to_char("Value must be numeric.\n\r", ch);
+            return;
+        }
+
+        value = atoi(arg3);
+
+        if (value < 0 || value > 60)
+        {
+            send_to_char("Value must be between 0 and 60.\n\r", ch);
+            return;
+        }
+
+        victim->nextquest = value;
+        printf_to_char(ch, "%s's nextquest timer set to %d.", victim->name, value);
+
+        return;
+    }
+
+    // Generate usage message if nothing matched.
     do_function (ch, &do_mset, "");
     return;
 }
