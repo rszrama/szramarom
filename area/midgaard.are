@@ -957,6 +957,25 @@ ACHS PQ -100 0
 EFJN 0 0 0
 stand stand either 100
 AHMV ABCDEFGHIJK medium unknown
+#3390
+Diana questmaster~
+Diana~
+{MDiana sits behind a desk cluttered with dispatches from the realm.{x
+~
+Diana, former receptionist for Merc Industries, is a charming Southern
+belle.  Once an expert in negotiating rent for road weary adventurers, she
+has established a successful second career as Questmistress of the realm. 
+She quickly scans the dispatches that arrive on her desk to find the worst
+crimes, sending eager adventurers off to right the wrongs in the land.  
+~
+human~
+ABQRV DF 0 0
+34 0 1d1+1999 1d1+999 5d6+20 none
+-15 -15 -15 -15
+EFIK ABCDE 0 0
+sit sit female 25000
+HMV ABCDEFGHIJK medium unknown
+F for A
 #0
 
 
@@ -4961,9 +4980,11 @@ You see the exit to the entrance hall.
 0 -1 3006
 S
 #3008
-The Defunct Reception~
-You are standing in a dusty, defunct reception.  The staircase leads
-down to the entrance hall.
+The Renovated Reception~
+You are standing in a shiny, renovated reception hall dominated by a
+large desk full of papers.  Once the home of Merc Industries, Diana now uses
+this room as her center of operations for administering quests to intrepid
+adventurers.  A single happy fern sits in a pot in the corner.  
 ~
 0 262152 0
 D5
@@ -6136,6 +6157,7 @@ M 3100 spec_cast_cleric
 M 3120 spec_cast_cleric
 M 3143 spec_mayor
 M 3163 spec_nasty
+M 3390 spec_questmaster
 M 3000 spec_cast_mage
 M 3005 spec_thief
 M 3011 spec_executioner
@@ -6143,7 +6165,6 @@ M 3012 spec_cast_adept
 M 3020 spec_cast_mage
 M 3021 spec_cast_cleric
 M 3024 spec_cast_mage
-M 3040 spec_questmaster
 M 3042 spec_cast_mage
 M 3043 spec_cast_cleric
 M 3060 spec_guard
@@ -6315,8 +6336,7 @@ G 0 3001 0 A bottle of beer is given to the bartender
 E 0 3022 0 16 A long sword is loaded wielded of the bartender
 M 0 3064 3 3007 3 Load the drunk
 O 0 3200 0 3007 The juke loaded to The Grunting Boar
-O 0 3139 0 3008 The receptionist's letter of resignation loaded to The Defunct Reception
-O 0 3140 0 3008 The bank's notice of liquidation loaded to The Defunct Reception
+M 0 3390 1 3008 1 Load Diana
 M 0 3001 1 3009 1 Load the baker
 G 0 3009 0 A big pot pie is given to the baker
 G 0 3011 0 A bread is given to the baker
