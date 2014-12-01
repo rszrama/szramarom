@@ -1553,6 +1553,40 @@ void do_score (CHAR_DATA * ch, char *argument)
         send_to_char (buf, ch);
     }
 
+    // Show quest information to players.
+    if (!IS_NPC(ch))
+    {
+        sprintf(buf, "You have %d quest points and have earned a total of %d in your life.\n\r",
+               ch->qp_current, ch->qp_total);
+        send_to_char(buf, ch);
+
+        if (ch->nextquest > 0)
+        {
+            if (ch->nextquest == 1)
+            {
+                send_to_char("{MYou can quest again in 1 minute.{x\n\r", ch);
+            }
+            else
+            {
+                sprintf(buf, "{MYou can quest again in %d minutes.{x\n\r", ch->nextquest);
+                send_to_char(buf, ch);
+            }
+        }
+        else if (ch->countdown > 0)
+        {
+            if (ch->countdown == 1)
+            {
+                send_to_char("{MHurry! You only have 1 more minute to complete your quest.{x\n\r", ch);
+            }
+            else
+            {
+                sprintf(buf, "{MHurry! You only have %d more minutes to complete your quest.{x\n\r",
+                        ch->countdown);
+                send_to_char(buf, ch);
+            }
+        }
+    }
+
     sprintf (buf, "Wimpy set to %d hit points.\n\r", ch->wimpy);
     send_to_char (buf, ch);
 
