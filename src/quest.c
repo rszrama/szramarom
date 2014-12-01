@@ -468,7 +468,7 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
         }
         else
         {
-            send_to_char("You aren't on a quest!\n\r", ch);
+            send_to_char("You aren't currently on a quest.\n\r", ch);
             return;
         }
    }
@@ -638,7 +638,7 @@ void quest_update(void)
             {
                 if (--ch->nextquest == 0)
                 {
-                    send_to_char("You may now quest again.\n\r", ch);
+                    send_to_char("{MYou may now quest again.{x\n\r", ch);
                     return;
                 }
             }
@@ -649,7 +649,7 @@ void quest_update(void)
                     char buf [MAX_STRING_LENGTH];
 
                     ch->nextquest = 10;
-                    sprintf(buf, "You have run out of time for your quest!\n\rYou may quest again in %d minutes.\n\r", ch->nextquest);
+                    sprintf(buf, "{MYou have run out of time for your quest!{x\n\r{MYou may quest again in %d minutes.{x\n\r", ch->nextquest);
                     send_to_char(buf, ch);
                     REMOVE_BIT(ch->act, PLR_QUESTOR);
                     ch->questgiver = NULL;
@@ -660,7 +660,7 @@ void quest_update(void)
                 }
                 if (ch->countdown > 0 && ch->countdown < 6)
                 {
-                    send_to_char("Better hurry, you're almost out of time for your quest!\n\r", ch);
+                    send_to_char("{MBetter hurry, you're almost out of time for your quest!{x\n\r", ch);
                     return;
                 }
             }

@@ -1815,8 +1815,8 @@ void group_gain (CHAR_DATA * ch, CHAR_DATA * victim)
     {
         if (ch->questmob == victim->pIndexData->vnum)
         {
-            send_to_char("{MYou have almost completed your QUEST!\n\r", ch);
-            send_to_char("Return to the questmistress before your time runs out!{x\n\r", ch);
+            send_to_char("{MYou have almost completed your QUEST!{x\n\r", ch);
+            send_to_char("{MReturn to the questmistress before your time runs out!{x\n\r", ch);
             ch->questmob = -1;
         }
     }
