@@ -2305,8 +2305,18 @@ void do_count (CHAR_DATA * ch, char *argument)
 
 void do_inventory (CHAR_DATA * ch, char *argument)
 {
-    send_to_char ("You are carrying:\n\r", ch);
-    show_list_to_char (ch->carrying, ch, TRUE, TRUE);
+    char buf[MAX_STRING_LENGTH];
+
+    send_to_char("{yYou are carrying:{x\n\r\n\r", ch);
+
+    show_list_to_char(ch->carrying, ch, TRUE, TRUE);
+
+    sprintf(buf,
+            "\n\rYou are carrying %d/%d items with weight %ld/%d pounds.\n\r",
+            ch->carry_number, can_carry_n (ch),
+            get_carry_weight (ch) / 10, can_carry_w (ch) / 10);
+    send_to_char(buf, ch);
+
     return;
 }
 
