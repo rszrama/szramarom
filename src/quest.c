@@ -121,7 +121,7 @@ void do_quest(CHAR_DATA *ch, char *argument)
 
     if (!strcmp(arg1, "points"))
     {
-        sprintf(buf, "You currently have %d quest points to spend.\n\r", ch->qp_current);
+        sprintf(buf, "{yYou currently have %d quest points to spend.{x\n\r", ch->qp_current);
         send_to_char(buf, ch);
         sprintf(buf, "In total you have earned %d quest points.\n\r", ch->qp_total);
         send_to_char(buf, ch);
@@ -199,7 +199,7 @@ void do_quest(CHAR_DATA *ch, char *argument)
 1000qp.........Bag of Tricks\n\r\
 750qp..........10 Practices\n\r\
 500qp..........1,000 gold pieces\n\r\n\r\
-To buy an item, type 'QUEST BUY <item>'.\n\r");
+{cTo buy an item, type 'QUEST BUY <item>'.{x\n\r");
 
         send_to_char(buf, ch);
 

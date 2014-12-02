@@ -1099,9 +1099,8 @@ void do_look (CHAR_DATA * ch, char *argument)
     if (arg1[0] == '\0' || !str_cmp (arg1, "auto"))
     {
         /* 'look' or 'look auto' */
-        send_to_char ("{s", ch);
-        send_to_char (ch->in_room->name, ch);
-        send_to_char ("{x", ch);
+        sprintf(buf, "{Y%s{x", ch->in_room->name);
+        send_to_char(buf, ch);
 
         if ((IS_IMMORTAL (ch)
              && (IS_NPC (ch) || IS_SET (ch->act, PLR_HOLYLIGHT)))
@@ -1819,7 +1818,7 @@ void do_affects (CHAR_DATA * ch, char *argument)
     }
     else
     {
-        send_to_char ("{yYou are not affected by any spells.{x\n\r", ch);
+        send_to_char ("{cYou are not affected by any spells.{x\n\r", ch);
     }
 
     return;
@@ -2274,7 +2273,7 @@ void do_who (CHAR_DATA * ch, char *argument)
         /*
          * Format it up.
          */
-        sprintf (buf, "[%2d %6s %s] %s%s%s%s%s%s%s%s\n\r",
+        sprintf (buf, "{c[{x%2d %6s %s{c]{x %s%s%s%s%s%s%s%s{x\n\r",
                  wch->level,
                  wch->race < MAX_PC_RACE ? pc_race_table[wch->race].who_name
                  : "     ",
@@ -2289,10 +2288,13 @@ void do_who (CHAR_DATA * ch, char *argument)
         add_buf (output, buf);
     }
 
-    sprintf (buf2, "\n\rPlayers found: %d\n\r", nMatch);
-    add_buf (output, buf2);
+    sprintf(buf2, "\n\r {cTotal players:{x %d\n\r", nMatch);
+    add_buf(output, buf2);
+
+    send_to_char("{yYou see the following people online:{x\n\r\n\r", ch);
     page_to_char (buf_string (output), ch);
     free_buf (output);
+
     return;
 }
 
@@ -2331,7 +2333,7 @@ void do_inventory (CHAR_DATA * ch, char *argument)
     show_list_to_char(ch->carrying, ch, TRUE, TRUE);
 
     sprintf(buf,
-            "\n\rYou are carrying %d/%d items with weight %ld/%d pounds.\n\r",
+            "\n\r{cYou are carrying %d/%d items with weight %ld/%d pounds.{x\n\r",
             ch->carry_number, can_carry_n (ch),
             get_carry_weight (ch) / 10, can_carry_w (ch) / 10);
     send_to_char(buf, ch);
@@ -2343,32 +2345,40 @@ void do_inventory (CHAR_DATA * ch, char *argument)
 
 void do_equipment (CHAR_DATA * ch, char *argument)
 {
+    char buf[MAX_STRING_LENGTH];
     OBJ_DATA *obj;
     int iWear;
     bool found;
 
-    send_to_char ("You are using:\n\r", ch);
+    send_to_char ("{yYou are using:{x\n\r\n\r", ch);
     found = FALSE;
     for (iWear = 0; iWear < MAX_WEAR; iWear++)
     {
-        if ((obj = get_eq_char (ch, iWear)) == NULL)
-            continue;
-
-        send_to_char (where_name[iWear], ch);
-        if (can_see_obj (ch, obj))
+        if ((obj = get_eq_char(ch, iWear)) == NULL)
         {
-            send_to_char (format_obj_to_char (obj, ch, TRUE), ch);
-            send_to_char ("\n\r", ch);
+            continue;
+        }
+
+        sprintf(buf, "{c%s{x", where_name[iWear]);
+        send_to_char(buf, ch);
+
+        if (can_see_obj(ch, obj))
+        {
+            send_to_char(format_obj_to_char (obj, ch, TRUE), ch);
+            send_to_char("\n\r", ch);
         }
         else
         {
-            send_to_char ("something.\n\r", ch);
+            send_to_char("something\n\r", ch);
         }
+
         found = TRUE;
     }
 
     if (!found)
+    {
         send_to_char ("Nothing.\n\r", ch);
+    }
 
     return;
 }
