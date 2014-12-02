@@ -1498,7 +1498,7 @@ void do_score (CHAR_DATA * ch, char *argument)
     int i;
 
     sprintf(buf,
-            "{yYou are {x%s%s{y, a %s %s %s.{x\n\r",
+            "You are %s%s{x, a %s %s %s.\n\r",
             ch->name,
             IS_NPC(ch) ? "" : ch->pcdata->title,
             ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
@@ -1510,6 +1510,15 @@ void do_score (CHAR_DATA * ch, char *argument)
             "Level %d, %d years old (%d hours played).\n\r\n\r",
             ch->level, get_age(ch),
             (ch->played + (int) (current_time - ch->logon)) / 3600);
+    send_to_char(buf, ch);
+
+    sprintf(buf,
+            "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r\n\r",
+            ch->perm_stat[STAT_STR], get_curr_stat(ch, STAT_STR),
+            ch->perm_stat[STAT_INT], get_curr_stat(ch, STAT_INT),
+            ch->perm_stat[STAT_WIS], get_curr_stat(ch, STAT_WIS),
+            ch->perm_stat[STAT_DEX], get_curr_stat(ch, STAT_DEX),
+            ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON));
     send_to_char(buf, ch);
 
     sprintf(buf,
@@ -1543,15 +1552,6 @@ void do_score (CHAR_DATA * ch, char *argument)
         send_to_char("satanic", ch);
 
     sprintf(buf, " (%d)\n\r\n\r", ch->alignment);
-    send_to_char(buf, ch);
-
-    sprintf(buf,
-            "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r\n\r",
-            ch->perm_stat[STAT_STR], get_curr_stat(ch, STAT_STR),
-            ch->perm_stat[STAT_INT], get_curr_stat(ch, STAT_INT),
-            ch->perm_stat[STAT_WIS], get_curr_stat(ch, STAT_WIS),
-            ch->perm_stat[STAT_DEX], get_curr_stat(ch, STAT_DEX),
-            ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON));
     send_to_char(buf, ch);
 
     sprintf (buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\n\r",
@@ -1611,13 +1611,14 @@ void do_score (CHAR_DATA * ch, char *argument)
             sprintf(buf, "divinely armored against %s.\n\r", temp);
 
         send_to_char(buf, ch);
-        send_to_char("\n\r", ch);
     }
+
+    send_to_char("\n\r", ch);
 
     // Show quest information to players.
     if (!IS_NPC(ch))
     {
-        sprintf(buf, "You have %d quest points and have earned a total of %d in your life.\n\r",
+        sprintf(buf, "You have %d quest points and have earned a total of %d.\n\r",
                ch->qp_current, ch->qp_total);
         send_to_char(buf, ch);
 
@@ -1740,7 +1741,6 @@ void do_score (CHAR_DATA * ch, char *argument)
             sprintf (buf, "Incognito level: %d\n\r", ch->incog_level);
             send_to_char (buf, ch);
         }
-        send_to_char ("\n\r", ch);
 
         if (ch->invis_level)
         {
