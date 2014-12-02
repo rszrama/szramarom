@@ -1497,70 +1497,121 @@ void do_score (CHAR_DATA * ch, char *argument)
     char buf[MAX_STRING_LENGTH];
     int i;
 
-    sprintf (buf,
-             "You are %s%s, level %d, %d years old (%d hours).\n\r",
-             ch->name,
-             IS_NPC (ch) ? "" : ch->pcdata->title,
-             ch->level, get_age (ch),
-             (ch->played + (int) (current_time - ch->logon)) / 3600);
+    sprintf(buf,
+            "{yYou are {x%s%s{y, a %s %s %s.{x\n\r",
+            ch->name,
+            IS_NPC(ch) ? "" : ch->pcdata->title,
+            ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
+            race_table[ch->race].name,
+            IS_NPC(ch) ? "mobile" : class_table[ch->class].name);
     send_to_char (buf, ch);
 
-    if (get_trust (ch) != ch->level)
+    sprintf(buf,
+            "Level %d, %d years old (%d hours played).\n\r\n\r",
+            ch->level, get_age(ch),
+            (ch->played + (int) (current_time - ch->logon)) / 3600);
+    send_to_char(buf, ch);
+
+    sprintf(buf,
+            "HP: %d/%d   Mana: %d/%d   Moves: %d/%d\n\r",
+            ch->hit, ch->max_hit,
+            ch->mana, ch->max_mana,
+            ch->move, ch->max_move);
+    send_to_char (buf, ch);
+
+    sprintf(buf, "Hitroll: %d   Damroll: %d   Alignment: ",
+            GET_HITROLL(ch), GET_DAMROLL(ch));
+    send_to_char (buf, ch);
+
+    if (ch->alignment > 900)
+        send_to_char("angelic", ch);
+    else if (ch->alignment > 700)
+        send_to_char("saintly", ch);
+    else if (ch->alignment > 350)
+        send_to_char("good", ch);
+    else if (ch->alignment > 100)
+        send_to_char("kind", ch);
+    else if (ch->alignment > -100)
+        send_to_char("neutral", ch);
+    else if (ch->alignment > -350)
+        send_to_char("mean", ch);
+    else if (ch->alignment > -700)
+        send_to_char("evil", ch);
+    else if (ch->alignment > -900)
+        send_to_char("demonic", ch);
+    else
+        send_to_char("satanic", ch);
+
+    sprintf(buf, " (%d)\n\r\n\r", ch->alignment);
+    send_to_char(buf, ch);
+
+    sprintf(buf,
+            "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r\n\r",
+            ch->perm_stat[STAT_STR], get_curr_stat(ch, STAT_STR),
+            ch->perm_stat[STAT_INT], get_curr_stat(ch, STAT_INT),
+            ch->perm_stat[STAT_WIS], get_curr_stat(ch, STAT_WIS),
+            ch->perm_stat[STAT_DEX], get_curr_stat(ch, STAT_DEX),
+            ch->perm_stat[STAT_CON], get_curr_stat(ch, STAT_CON));
+    send_to_char(buf, ch);
+
+    sprintf (buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\n\r",
+             GET_AC (ch, AC_PIERCE),
+             GET_AC (ch, AC_BASH),
+             GET_AC (ch, AC_SLASH), GET_AC (ch, AC_EXOTIC));
+    send_to_char (buf, ch);
+
+    for (i = 0; i < 4; i++)
     {
-        sprintf (buf, "You are trusted at level %d.\n\r", get_trust (ch));
-        send_to_char (buf, ch);
-    }
+        char *temp;
 
-    sprintf (buf, "Race: %s  Sex: %s  Class: %s\n\r",
-             race_table[ch->race].name,
-             ch->sex == 0 ? "sexless" : ch->sex == 1 ? "male" : "female",
-             IS_NPC (ch) ? "mobile" : class_table[ch->class].name);
-    send_to_char (buf, ch);
+        switch (i)
+        {
+            case (AC_PIERCE):
+                temp = "piercing";
+                break;
+            case (AC_BASH):
+                temp = "bashing";
+                break;
+            case (AC_SLASH):
+                temp = "slashing";
+                break;
+            case (AC_EXOTIC):
+                temp = "magic";
+                break;
+            default:
+                temp = "error";
+                break;
+        }
 
+        send_to_char("You are ", ch);
 
-    sprintf (buf,
-             "You have %d/%d hit, %d/%d mana, %d/%d movement.\n\r",
-             ch->hit, ch->max_hit,
-             ch->mana, ch->max_mana, ch->move, ch->max_move);
-    send_to_char (buf, ch);
+        if (GET_AC(ch, i) >= 101)
+            sprintf(buf, "hopelessly vulnerable to %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= 80)
+            sprintf(buf, "defenseless against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= 60)
+            sprintf(buf, "barely protected from %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= 40)
+            sprintf(buf, "slightly armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= 20)
+            sprintf(buf, "somewhat armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= 0)
+            sprintf(buf, "armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= -20)
+            sprintf(buf, "well-armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= -40)
+            sprintf(buf, "very well-armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= -60)
+            sprintf(buf, "heavily armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= -80)
+            sprintf(buf, "superbly armored against %s.\n\r", temp);
+        else if (GET_AC(ch, i) >= -100)
+            sprintf(buf, "almost invulnerable to %s.\n\r", temp);
+        else
+            sprintf(buf, "divinely armored against %s.\n\r", temp);
 
-    sprintf (buf,
-             "You have %d practices and %d training sessions.\n\r",
-             ch->practice, ch->train);
-    send_to_char (buf, ch);
-
-    sprintf (buf,
-             "You are carrying %d/%d items with weight %ld/%d pounds.\n\r",
-             ch->carry_number, can_carry_n (ch),
-             get_carry_weight (ch) / 10, can_carry_w (ch) / 10);
-    send_to_char (buf, ch);
-
-    sprintf (buf,
-             "Str: %d(%d)  Int: %d(%d)  Wis: %d(%d)  Dex: %d(%d)  Con: %d(%d)\n\r",
-             ch->perm_stat[STAT_STR],
-             get_curr_stat (ch, STAT_STR),
-             ch->perm_stat[STAT_INT],
-             get_curr_stat (ch, STAT_INT),
-             ch->perm_stat[STAT_WIS],
-             get_curr_stat (ch, STAT_WIS),
-             ch->perm_stat[STAT_DEX],
-             get_curr_stat (ch, STAT_DEX),
-             ch->perm_stat[STAT_CON], get_curr_stat (ch, STAT_CON));
-    send_to_char (buf, ch);
-
-    sprintf (buf,
-             "You have scored %d exp, and have %ld gold and %ld silver coins.\n\r",
-             ch->exp, ch->gold, ch->silver);
-    send_to_char (buf, ch);
-
-    /* RT shows exp to level */
-    if (!IS_NPC (ch) && ch->level < LEVEL_HERO)
-    {
-        sprintf (buf,
-                 "You need %d exp to level.\n\r",
-                 ((ch->level + 1) * exp_per_level (ch, ch->pcdata->points) -
-                  ch->exp));
-        send_to_char (buf, ch);
+        send_to_char(buf, ch);
+        send_to_char("\n\r", ch);
     }
 
     // Show quest information to players.
@@ -1597,29 +1648,51 @@ void do_score (CHAR_DATA * ch, char *argument)
         }
     }
 
-    sprintf (buf, "Wimpy set to %d hit points.\n\r", ch->wimpy);
+    sprintf(buf, "You have scored %d total experience", ch->exp);
     send_to_char (buf, ch);
 
-    if (!IS_NPC (ch) && ch->pcdata->condition[COND_DRUNK] > 10)
-        send_to_char ("You are drunk.\n\r", ch);
-    if (!IS_NPC (ch) && ch->pcdata->condition[COND_THIRST] == 0)
-        send_to_char ("You are thirsty.\n\r", ch);
-    if (!IS_NPC (ch) && ch->pcdata->condition[COND_HUNGER] == 0)
-        send_to_char ("You are hungry.\n\r", ch);
+    if (!IS_NPC(ch) && ch->level < LEVEL_HERO)
+    {
+        sprintf(buf,
+                "(%d to next level)",
+                ((ch->level + 1) * exp_per_level(ch, ch->pcdata->points) - ch->exp));
+        send_to_char(buf, ch);
+    }
+
+    send_to_char(".\n\r", ch);
+
+    sprintf(buf,
+            "You have %ld gold and %ld silver coins.\n\r\n\r",
+            ch->gold, ch->silver);
+    send_to_char(buf, ch);
+
+    sprintf(buf,
+            "You are carrying %d/%d items with weight %ld/%d pounds.\n\r",
+            ch->carry_number, can_carry_n(ch),
+            get_carry_weight(ch) / 10, can_carry_w(ch) / 10);
+    send_to_char(buf, ch);
+
+    sprintf(buf,
+            "You have %d practices and %d training sessions.\n\r",
+            ch->practice, ch->train);
+    send_to_char(buf, ch);
+
+    sprintf(buf, "Wimpy set to %d hit points.\n\r", ch->wimpy);
+    send_to_char(buf, ch);
 
     switch (ch->position)
     {
         case POS_DEAD:
-            send_to_char ("You are DEAD!!\n\r", ch);
+            send_to_char("{RYou are DEAD!!{x\n\r", ch);
             break;
         case POS_MORTAL:
-            send_to_char ("You are mortally wounded.\n\r", ch);
+            send_to_char ("{RYou are mortally wounded.{x\n\r", ch);
             break;
         case POS_INCAP:
-            send_to_char ("You are incapacitated.\n\r", ch);
+            send_to_char ("{rYou are incapacitated.{x\n\r", ch);
             break;
         case POS_STUNNED:
-            send_to_char ("You are stunned.\n\r", ch);
+            send_to_char ("{rYou are stunned.{x\n\r", ch);
             break;
         case POS_SLEEPING:
             send_to_char ("You are sleeping.\n\r", ch);
@@ -1638,129 +1711,59 @@ void do_score (CHAR_DATA * ch, char *argument)
             break;
     }
 
-
-    /* print AC values */
-    if (ch->level >= 25)
+    if (!IS_NPC(ch) && ch->pcdata->condition[COND_DRUNK] > 10)
     {
-        sprintf (buf, "Armor: pierce: %d  bash: %d  slash: %d  magic: %d\n\r",
-                 GET_AC (ch, AC_PIERCE),
-                 GET_AC (ch, AC_BASH),
-                 GET_AC (ch, AC_SLASH), GET_AC (ch, AC_EXOTIC));
-        send_to_char (buf, ch);
+        send_to_char("You are drunk.\n\r", ch);
+    }
+    if (!IS_NPC(ch) && ch->pcdata->condition[COND_THIRST] == 0)
+    {
+        send_to_char("You are thirsty.\n\r", ch);
+    }
+    if (!IS_NPC(ch) && ch->pcdata->condition[COND_HUNGER] == 0)
+    {
+        send_to_char("You are hungry.\n\r", ch);
     }
 
-    for (i = 0; i < 4; i++)
+    send_to_char("\n\r", ch);
+
+    if (get_trust(ch) != ch->level)
     {
-        char *temp;
-
-        switch (i)
-        {
-            case (AC_PIERCE):
-                temp = "piercing";
-                break;
-            case (AC_BASH):
-                temp = "bashing";
-                break;
-            case (AC_SLASH):
-                temp = "slashing";
-                break;
-            case (AC_EXOTIC):
-                temp = "magic";
-                break;
-            default:
-                temp = "error";
-                break;
-        }
-
-        send_to_char ("You are ", ch);
-
-        if (GET_AC (ch, i) >= 101)
-            sprintf (buf, "hopelessly vulnerable to %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= 80)
-            sprintf (buf, "defenseless against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= 60)
-            sprintf (buf, "barely protected from %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= 40)
-            sprintf (buf, "slightly armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= 20)
-            sprintf (buf, "somewhat armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= 0)
-            sprintf (buf, "armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= -20)
-            sprintf (buf, "well-armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= -40)
-            sprintf (buf, "very well-armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= -60)
-            sprintf (buf, "heavily armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= -80)
-            sprintf (buf, "superbly armored against %s.\n\r", temp);
-        else if (GET_AC (ch, i) >= -100)
-            sprintf (buf, "almost invulnerable to %s.\n\r", temp);
-        else
-            sprintf (buf, "divinely armored against %s.\n\r", temp);
-
-        send_to_char (buf, ch);
+        sprintf(buf, "Imm trust level: %d\n\r", get_trust(ch));
+        send_to_char(buf, ch);
     }
-
 
     /* RT wizinvis and holy light */
-    if (IS_IMMORTAL (ch))
+    if (IS_IMMORTAL(ch))
     {
-        send_to_char ("Holy Light: ", ch);
-        if (IS_SET (ch->act, PLR_HOLYLIGHT))
-            send_to_char ("on", ch);
-        else
-            send_to_char ("off", ch);
-
-        if (ch->invis_level)
-        {
-            sprintf (buf, "  Invisible: level %d", ch->invis_level);
-            send_to_char (buf, ch);
-        }
-
         if (ch->incog_level)
         {
-            sprintf (buf, "  Incognito: level %d", ch->incog_level);
+            sprintf (buf, "Incognito level: %d\n\r", ch->incog_level);
             send_to_char (buf, ch);
         }
         send_to_char ("\n\r", ch);
+
+        if (ch->invis_level)
+        {
+            sprintf (buf, "Wizinvis level: %d\n\r", ch->invis_level);
+            send_to_char (buf, ch);
+        }
+
+        send_to_char ("Holy light: ", ch);
+        if (IS_SET(ch->act, PLR_HOLYLIGHT))
+        {
+            send_to_char("on\n\r", ch);
+        }
+        else
+        {
+            send_to_char("off\n\r", ch);
+        }
     }
 
-    if (ch->level >= 15)
+    if (IS_SET(ch->comm, COMM_SHOW_AFFECTS))
     {
-        sprintf (buf, "Hitroll: %d  Damroll: %d.\n\r",
-                 GET_HITROLL (ch), GET_DAMROLL (ch));
-        send_to_char (buf, ch);
+        send_to_char("\n\r", ch);
+        do_function(ch, &do_affects, "");
     }
-
-    if (ch->level >= 10)
-    {
-        sprintf (buf, "Alignment: %d.  ", ch->alignment);
-        send_to_char (buf, ch);
-    }
-
-    send_to_char ("You are ", ch);
-    if (ch->alignment > 900)
-        send_to_char ("angelic.\n\r", ch);
-    else if (ch->alignment > 700)
-        send_to_char ("saintly.\n\r", ch);
-    else if (ch->alignment > 350)
-        send_to_char ("good.\n\r", ch);
-    else if (ch->alignment > 100)
-        send_to_char ("kind.\n\r", ch);
-    else if (ch->alignment > -100)
-        send_to_char ("neutral.\n\r", ch);
-    else if (ch->alignment > -350)
-        send_to_char ("mean.\n\r", ch);
-    else if (ch->alignment > -700)
-        send_to_char ("evil.\n\r", ch);
-    else if (ch->alignment > -900)
-        send_to_char ("demonic.\n\r", ch);
-    else
-        send_to_char ("satanic.\n\r", ch);
-
-    if (IS_SET (ch->comm, COMM_SHOW_AFFECTS))
-        do_function (ch, &do_affects, "");
 }
 
 void do_affects (CHAR_DATA * ch, char *argument)
@@ -1770,16 +1773,25 @@ void do_affects (CHAR_DATA * ch, char *argument)
 
     if (ch->affected != NULL)
     {
-        send_to_char ("You are affected by the following spells:\n\r", ch);
+        send_to_char("{yYou are affected by the following spells:{x\n\r\n\r", ch);
+
         for (paf = ch->affected; paf != NULL; paf = paf->next)
         {
             if (paf_last != NULL && paf->type == paf_last->type)
+            {
                 if (ch->level >= 20)
+                {
                     sprintf (buf, "                      ");
+                }
                 else
+                {
                     continue;
+                }
+            }
             else
+            {
                 sprintf (buf, "Spell: %-15s", skill_table[paf->type].name);
+            }
 
             send_to_char (buf, ch);
 
@@ -1789,10 +1801,15 @@ void do_affects (CHAR_DATA * ch, char *argument)
                          ": modifies %s by %d ",
                          affect_loc_name (paf->location), paf->modifier);
                 send_to_char (buf, ch);
+
                 if (paf->duration == -1)
+                {
                     sprintf (buf, "permanently");
+                }
                 else
+                {
                     sprintf (buf, "for %d hours", paf->duration);
+                }
                 send_to_char (buf, ch);
             }
 
@@ -1801,7 +1818,9 @@ void do_affects (CHAR_DATA * ch, char *argument)
         }
     }
     else
-        send_to_char ("You are not affected by any spells.\n\r", ch);
+    {
+        send_to_char ("{yYou are not affected by any spells.{x\n\r", ch);
+    }
 
     return;
 }
