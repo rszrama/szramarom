@@ -158,12 +158,16 @@ reading them).
 
 -1 PROMPT~
 Syntax: prompt
+Syntax: prompt short
 Syntax: prompt all
 Syntax: prompt <%*>
 
 PROMPT with out an argument will turn your prompt on or off.
 
-PROMPT ALL will give you the standard "<hits mana moves>" prompt.
+PROMPT SHORT will give you a simple "<hp mana moves>" prompt.
+
+PROMPT ALL will give you a robust default prompt with the format:
+  "<hp/max mana/max moves TNL gold silver questpoints/timer>"
 
 PROMPT <%*> where the %* are the various variables you may set yourself.
 

@@ -942,23 +942,34 @@ void do_prompt (CHAR_DATA * ch, char *argument)
         return;
     }
 
-    if (!strcmp (argument, "all"))
-        strcpy (buf, "<%hhp %mm %vmv> ");
+    if (!strcmp(argument, "all"))
+    {
+        strcpy(buf, "{x<{R%h{x/{R%H {C%m{x/{C%M {G%v {B%X {Y%g {w%s{x {M%q{x/{M%t{x> ");
+    }
+    else if (!strcmp(argument, "short"))
+    {
+        strcpy(buf, "<%hhp %mm %vmv> ");
+    }
     else
     {
-        if (strlen (argument) > 75)
+        if (strlen(argument) > 75)
+        {
             argument[75] = '\0';
-        strcpy (buf, argument);
-        smash_tilde (buf);
-        if (str_suffix ("%c", buf))
-            strcat (buf, " ");
+        }
 
+        strcpy(buf, argument);
+        smash_tilde(buf);
+
+        if (str_suffix ("%c", buf))
+        {
+            strcat(buf, " ");
+        }
     }
 
     free_string (ch->prompt);
-    ch->prompt = str_dup (buf);
-    sprintf (buf, "Prompt set to %s\n\r", ch->prompt);
-    send_to_char (buf, ch);
+    ch->prompt = str_dup(buf);
+    sprintf(buf, "Prompt set to: %s\n\r", ch->prompt);
+    send_to_char(buf, ch);
     return;
 }
 
@@ -2457,8 +2468,17 @@ void do_where (CHAR_DATA * ch, char *argument)
 
     if (arg[0] == '\0')
     {
-        send_to_char ("Players near you:\n\r", ch);
+        if (ch->in_room != NULL)
+        {
+            sprintf(buf, "{yYou are currently exploring %s with:{x\n\r\n\r", ch->in_room->area->name);
+            send_to_char(buf, ch);
+        }
+        else {
+            send_to_char("{yPlayers near you:{x\n\r\n\r", ch);
+        }
+
         found = FALSE;
+
         for (d = descriptor_list; d; d = d->next)
         {
             if (d->connected == CON_PLAYING
@@ -2491,7 +2511,7 @@ void do_where (CHAR_DATA * ch, char *argument)
                 && can_see (ch, victim) && is_name (arg, victim->name))
             {
                 found = TRUE;
-                sprintf (buf, "%-28s %s\n\r",
+                sprintf (buf, "%s can be found in %s.\n\r",
                          PERS (victim, ch), victim->in_room->name);
                 send_to_char (buf, ch);
                 break;
