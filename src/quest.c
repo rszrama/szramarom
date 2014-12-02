@@ -22,6 +22,7 @@ DECLARE_DO_FUN( do_say );
 /* Object vnums for Quest Rewards */
 
 #define QUEST_ITEM1 3390
+#define QUEST_ITEM2 3391
 
 /* Object vnums for object quest 'tokens'. */
 
@@ -193,10 +194,11 @@ void do_quest(CHAR_DATA *ch, char *argument)
         act("$n asks $N for a list of quest items.", ch, NULL, questman, TO_ROOM);
         act("You ask $N for a list of quest items.", ch, NULL, questman, TO_CHAR);
 
-        sprintf(buf, "Current Quest Items available for Purchase:\n\r\
-1000qp.........Amulet of Mota\n\r\
+        sprintf(buf, "\n\r{yCurrent Quest Items available for Purchase:{x\n\r\n\r\
+1250qp.........Amulet of Mota\n\r\
+1000qp.........Bag of Tricks\n\r\
 750qp..........10 Practices\n\r\
-500qp..........1,000 gold pieces\n\r\
+500qp..........1,000 gold pieces\n\r\n\r\
 To buy an item, type 'QUEST BUY <item>'.\n\r");
 
         send_to_char(buf, ch);
@@ -213,13 +215,26 @@ To buy an item, type 'QUEST BUY <item>'.\n\r");
 
         if (is_name(arg2, "amulet"))
         {
-            if (ch->qp_current >= 1000)
+            if (ch->qp_current >= 1250)
             {
-                ch->qp_current -= 1000;
+                ch->qp_current -= 1250;
                 obj = create_object(get_obj_index(QUEST_ITEM1), ch->level);
             }
             else
             {
+                sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
+                do_say(questman, buf);
+                return;
+            }
+        }
+        else if (is_name(arg2, "bag tricks"))
+        {
+            if (ch->qp_current >= 1000)
+            {
+                ch->qp_current -= 1000;
+                obj = create_object(get_obj_index(QUEST_ITEM2), ch->level);
+            }
+            else {
                 sprintf(buf, "Sorry, %s, but you don't have enough quest points for that.", ch->name);
                 do_say(questman, buf);
                 return;
