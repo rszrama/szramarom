@@ -324,7 +324,7 @@ typedef void SPELL_FUN args( ( int sn, int level, CHAR_DATA *ch, void *vo,
 #define BAN_SUFFIX     A
 #define BAN_PREFIX     B
 #define BAN_NEWBIES    C
-#define BAN_ALL        D    
+#define BAN_ALL        D
 #define BAN_PERMIT     E
 #define BAN_PERMANENT  F
 
@@ -393,8 +393,8 @@ struct    weather_data
 #define CON_GET_NEW_SEX			-6
 #define CON_GET_NEW_CLASS		-5
 #define CON_GET_ALIGNMENT		-4
-#define CON_DEFAULT_CHOICE		-3 
-#define CON_GEN_GROUPS			-2 
+#define CON_DEFAULT_CHOICE		-3
+#define CON_GEN_GROUPS			-2
 #define CON_PICK_WEAPON			-1
 #define CON_PLAYING			0
 #define CON_READ_IMOTD			1
@@ -727,7 +727,7 @@ struct    kill_data
 #define Z     33554432
 #define aa    67108864  /* doubled due to conflicts */
 #define bb   134217728
-#define cc   268435456    
+#define cc   268435456
 #define dd   536870912
 #define ee  1073741824
 
@@ -744,7 +744,7 @@ struct    kill_data
 #define ACT_PET            (I)   /* Auto set for pets  */
 #define ACT_TRAIN          (J)   /* Can train PC's     */
 #define ACT_PRACTICE       (K)   /* Can practice PC's  */
-#define ACT_UNDEAD         (O)    
+#define ACT_UNDEAD         (O)
 #define ACT_CLERIC         (Q)
 #define ACT_MAGE           (R)
 #define ACT_THIEF          (S)
@@ -833,7 +833,7 @@ struct    kill_data
 #define IMM_WOOD           (X)
 #define IMM_SILVER         (Y)
 #define IMM_IRON           (Z)
- 
+
 /* RES bits for mobs */
 #define RES_SUMMON         (A)
 #define RES_CHARM          (B)
@@ -858,7 +858,7 @@ struct    kill_data
 #define RES_WOOD                (X)
 #define RES_SILVER              (Y)
 #define RES_IRON                (Z)
- 
+
 /* VULN bits for mobs */
 #define VULN_SUMMON        (A)
 #define VULN_CHARM        (B)
@@ -883,14 +883,14 @@ struct    kill_data
 #define VULN_WOOD               (X)
 #define VULN_SILVER             (Y)
 #define VULN_IRON        (Z)
- 
+
 /* body form */
 #define FORM_EDIBLE             (A)
 #define FORM_POISON             (B)
 #define FORM_MAGICAL            (C)
 #define FORM_INSTANT_DECAY      (D)
 #define FORM_OTHER              (E)  /* defined by material bit */
- 
+
 /* actual form */
 #define FORM_ANIMAL             (G)
 #define FORM_SENTIENT           (H)
@@ -898,7 +898,7 @@ struct    kill_data
 #define FORM_CONSTRUCT          (J)
 #define FORM_MIST               (K)
 #define FORM_INTANGIBLE         (L)
- 
+
 #define FORM_BIPED              (M)
 #define FORM_CENTAUR            (N)
 #define FORM_INSECT             (O)
@@ -906,7 +906,7 @@ struct    kill_data
 #define FORM_CRUSTACEAN         (Q)
 #define FORM_WORM               (R)
 #define FORM_BLOB        (S)
- 
+
 #define FORM_MAMMAL             (V)
 #define FORM_BIRD               (W)
 #define FORM_REPTILE            (X)
@@ -914,8 +914,8 @@ struct    kill_data
 #define FORM_DRAGON             (Z)
 #define FORM_AMPHIBIAN          (aa)
 #define FORM_FISH               (bb)
-#define FORM_COLD_BLOOD        (cc)    
- 
+#define FORM_COLD_BLOOD        (cc)
+
 /* body parts */
 #define PART_HEAD               (A)
 #define PART_ARMS               (B)
@@ -1153,7 +1153,7 @@ struct    kill_data
 #define WEAPON_MACE     4
 #define WEAPON_AXE      5
 #define WEAPON_FLAIL    6
-#define WEAPON_WHIP     7    
+#define WEAPON_WHIP     7
 #define WEAPON_POLEARM  8
 
 /* weapon types */
@@ -1388,30 +1388,33 @@ struct    kill_data
 /*
  * ACT bits for players.
  */
-#define PLR_IS_NPC        (A)        /* Don't EVER set.    */
+#define PLR_IS_NPC        (A) // Don't EVER set on players.
+#define PLR_QUESTOR       (B)
 
 /* RT auto flags */
-#define PLR_AUTOASSIST        (C)
-#define PLR_AUTOEXIT        (D)
-#define PLR_AUTOLOOT        (E)
-#define PLR_AUTOSAC             (F)
-#define PLR_AUTOGOLD        (G)
-#define PLR_AUTOSPLIT        (H)
+#define PLR_AUTOASSIST    (C)
+#define PLR_AUTOEXIT      (D)
+#define PLR_AUTOLOOT      (E)
+#define PLR_AUTOSAC       (F)
+#define PLR_AUTOGOLD      (G)
+#define PLR_AUTOSPLIT     (H)
+#define PLR_AUTOTICK      (I)
 
 /* RT personal flags */
-#define PLR_HOLYLIGHT        (N)
-#define PLR_CANLOOT        (P)
-#define PLR_NOSUMMON        (Q)
-#define PLR_NOFOLLOW        (R)
+#define PLR_HOLYLIGHT     (N)
+#define PLR_CANLOOT       (P)
+#define PLR_NOSUMMON      (Q)
+#define PLR_NOFOLLOW      (R)
 #define PLR_COLOUR        (T)
+
 /* 1 bit reserved, S */
 
 /* penalty flags */
 #define PLR_PERMIT        (U)
-#define PLR_LOG            (W)
-#define PLR_DENY        (X)
+#define PLR_LOG           (W)
+#define PLR_DENY          (X)
 #define PLR_FREEZE        (Y)
-#define PLR_THIEF        (Z)
+#define PLR_THIEF         (Z)
 #define PLR_KILLER        (aa)
 
 
@@ -1440,7 +1443,7 @@ struct    kill_data
 #define COMM_NOEMOTE            (T)
 #define COMM_NOSHOUT            (U)
 #define COMM_NOTELL             (V)
-#define COMM_NOCHANNELS         (W) 
+#define COMM_NOCHANNELS         (W)
 #define COMM_SNOOP_PROOF        (Y)
 #define COMM_AFK                (Z)
 
@@ -1525,7 +1528,7 @@ struct mem_data
 {
     MEM_DATA     *next;
     bool    valid;
-    int        id;     
+    int        id;
     int     reaction;
     time_t     when;
 };
@@ -1628,6 +1631,15 @@ struct    char_data
     sh_int             default_pos;
 
     sh_int             mprog_delay;
+
+    /* Quest data by Vassago. */
+    CHAR_DATA *        questgiver;
+    int                qp_current;
+    int                qp_total;
+    sh_int             nextquest;
+    sh_int             countdown;
+    sh_int             questobj;
+    sh_int             questmob;
 };
 
 
@@ -1687,7 +1699,7 @@ struct    pc_data
     int				gtell_type[3];          /* {N */
     int				wiznet[3];              /* {B */
     int				room_title[3];          /* {s */
-    int				room_text[3];           /* {S */   
+    int				room_text[3];           /* {S */
     int				room_exits[3];          /* {o */
     int				room_things[3];         /* {O */
     int				prompt[3];              /* {p */
@@ -1695,7 +1707,7 @@ struct    pc_data
     int				fight_yhit[3];          /* {2 */
     int				fight_ohit[3];          /* {3 */
     int				fight_thit[3];          /* {4 */
-    int				fight_skill[3];         /* {5 */              
+    int				fight_skill[3];         /* {5 */
 
 };
 
@@ -1827,7 +1839,7 @@ struct    exit_data
 /*
  * Reset commands:
  *   '*': comment
- *   'M': read a mobile 
+ *   'M': read a mobile
  *   'O': read an object
  *   'P': put object in object
  *   'G': give object to mobile
@@ -1939,7 +1951,7 @@ struct    skill_type
 {
     char *    name;            /* Name of skill        */
     sh_int    skill_level[MAX_CLASS];    /* Level needed by class    */
-    sh_int    rating[MAX_CLASS];    /* How hard it is to learn    */    
+    sh_int    rating[MAX_CLASS];    /* How hard it is to learn    */
     SPELL_FUN *    spell_fun;        /* Spell pointer (for spells)    */
     sh_int    target;            /* Legal targets        */
     sh_int    minimum_position;    /* Position for caster / user    */
@@ -1961,7 +1973,7 @@ struct  group_type
 
 /*
  * MOBprog definitions
- */                   
+ */
 #define TRIG_ACT    (A)
 #define TRIG_BRIBE    (B)
 #define TRIG_DEATH    (C)
@@ -2037,18 +2049,18 @@ extern sh_int  gsn_shield_block;
 extern sh_int  gsn_spear;
 extern sh_int  gsn_sword;
 extern sh_int  gsn_whip;
- 
+
 extern sh_int  gsn_bash;
 extern sh_int  gsn_berserk;
 extern sh_int  gsn_dirt;
 extern sh_int  gsn_hand_to_hand;
 extern sh_int  gsn_trip;
- 
+
 extern sh_int  gsn_fast_healing;
 extern sh_int  gsn_haggle;
 extern sh_int  gsn_lore;
 extern sh_int  gsn_meditation;
- 
+
 extern sh_int  gsn_scrolls;
 extern sh_int  gsn_staves;
 extern sh_int  gsn_wands;
@@ -2081,11 +2093,12 @@ extern sh_int  gsn_recall;
 /*
  * Character macros.
  */
-#define IS_NPC(ch)        (IS_SET((ch)->act, ACT_IS_NPC))
-#define IS_IMMORTAL(ch)        (get_trust(ch) >= LEVEL_IMMORTAL)
-#define IS_HERO(ch)        (get_trust(ch) >= LEVEL_HERO)
-#define IS_TRUSTED(ch,level)    (get_trust((ch)) >= (level))
-#define IS_AFFECTED(ch, sn)    (IS_SET((ch)->affected_by, (sn)))
+#define IS_NPC(ch)            (IS_SET((ch)->act, ACT_IS_NPC))
+#define IS_QUESTOR(ch)        (IS_SET((ch)->act, PLR_QUESTOR))
+#define IS_IMMORTAL(ch)       (get_trust(ch) >= LEVEL_IMMORTAL)
+#define IS_HERO(ch)           (get_trust(ch) >= LEVEL_HERO)
+#define IS_TRUSTED(ch,level)  (get_trust((ch)) >= (level))
+#define IS_AFFECTED(ch, sn)   (IS_SET((ch)->affected_by, (sn)))
 
 #define GET_AGE(ch)        ((int) (17 + ((ch)->played \
                     + current_time - (ch)->logon )/72000))
@@ -2097,7 +2110,7 @@ extern sh_int  gsn_recall;
 #define IS_AWAKE(ch)        (ch->position > POS_SLEEPING)
 #define GET_AC(ch,type)        ((ch)->armor[type]                \
                 + ( IS_AWAKE(ch)                \
-            ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))  
+            ? dex_app[get_curr_stat(ch,STAT_DEX)].defensive : 0 ))
 #define GET_HITROLL(ch)    \
         ((ch)->hitroll+str_app[get_curr_stat(ch,STAT_STR)].tohit)
 #define GET_DAMROLL(ch) \
@@ -2267,7 +2280,7 @@ char *    crypt        args( ( const char *key, const char *salt ) );
 int    fclose        args( ( FILE *stream ) );
 int    fprintf        args( ( FILE *stream, const char *format, ... ) );
 #if    defined(SYSV)
-siz_t    fread        args( ( void *ptr, size_t size, size_t n, 
+siz_t    fread        args( ( void *ptr, size_t size, size_t n,
                 FILE *stream) );
 #elif !defined(__SVR4)
 int    fread        args( ( void *ptr, int size, int n, FILE *stream ) );
@@ -2378,7 +2391,7 @@ void     wiznet              args( ( char *string, CHAR_DATA *ch, OBJ_DATA *obj,
                                      long flag, long flag_skip, int min_level ) );
 void     copyover_recover    args( ( void ) );
 void	qmconfig_read		args( ( void ) );
-                   
+
 /* alias.c */
 void     substitute_alias    args( ( DESCRIPTOR_DATA *d, char *input ) );
 
@@ -2396,7 +2409,7 @@ void     send_to_char        args( ( const char *txt, CHAR_DATA *ch ) );
 void     page_to_char        args( ( const char *txt, CHAR_DATA *ch ) );
 void     act                 args( ( const char *format, CHAR_DATA *ch,
                                      const void *arg1, const void *arg2, int type ) );
-void     act_new             args( ( const char *format, CHAR_DATA *ch, 
+void     act_new             args( ( const char *format, CHAR_DATA *ch,
                                      const void *arg1, const void *arg2, int type,
                                      int min_pos) );
 void     printf_to_char      args( ( CHAR_DATA *, char *, ... ) );
@@ -2458,9 +2471,9 @@ bool     check_pet_affected  args( ( int vnum, AFFECT_DATA *paf) );
   * Colour stuff by Lope
   */
  int   colour          args( ( char type, CHAR_DATA *ch, char *string ) );
- void  colourconv      args( ( char *buffer, const char *txt, CHAR_DATA*ch)); 
+ void  colourconv      args( ( char *buffer, const char *txt, CHAR_DATA*ch));
  void  send_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
- void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );    
+ void  page_to_char_bw args( ( const char *txt, CHAR_DATA *ch ) );
 
 
 /* effect.c */
@@ -2495,7 +2508,7 @@ int     material_lookup args( ( const char *name) );
 int    weapon_lookup    args( ( const char *name) );
 int    weapon_type    args( ( const char *name) );
 char     *weapon_name    args( ( int weapon_Type) );
-char    *item_name    args( ( int item_type) ); 
+char    *item_name    args( ( int item_type) );
 int    attack_lookup    args( ( const char *name) );
 long    wiznet_lookup    args( ( const char *name) );
 int    class_lookup    args( ( const char *name) );
@@ -2542,7 +2555,7 @@ CD *    get_char_world    args( ( CHAR_DATA *ch, char *argument ) );
 OD *    get_obj_type    args( ( OBJ_INDEX_DATA *pObjIndexData ) );
 OD *    get_obj_list    args( ( CHAR_DATA *ch, char *argument,
                 OBJ_DATA *list ) );
-OD *    get_obj_carry    args( ( CHAR_DATA *ch, char *argument, 
+OD *    get_obj_carry    args( ( CHAR_DATA *ch, char *argument,
                 CHAR_DATA *viewer ) );
 OD *    get_obj_wear    args( ( CHAR_DATA *ch, char *argument ) );
 OD *    get_obj_here    args( ( CHAR_DATA *ch, char *argument ) );
@@ -2597,7 +2610,7 @@ void    program_flow    args( ( sh_int vnum, char *source, CHAR_DATA *mob, CHAR_
                 const void *arg1, const void *arg2 ) );
 void    mp_act_trigger    args( ( char *argument, CHAR_DATA *mob, CHAR_DATA *ch,
                 const void *arg1, const void *arg2, int type ) );
-bool    mp_percent_trigger args( ( CHAR_DATA *mob, CHAR_DATA *ch,                 
+bool    mp_percent_trigger args( ( CHAR_DATA *mob, CHAR_DATA *ch,
                 const void *arg1, const void *arg2, int type ) );
 void    mp_bribe_trigger  args( ( CHAR_DATA *mob, CHAR_DATA *ch, int amount ) );
 bool    mp_exit_trigger   args( ( CHAR_DATA *ch, int dir ) );
@@ -2608,6 +2621,9 @@ void    mp_hprct_trigger  args( ( CHAR_DATA *mob, CHAR_DATA *ch ) );
 /* mob_cmds.c */
 void    mob_interpret    args( ( CHAR_DATA *ch, char *argument ) );
 
+/* quest.c */
+void    quest_update    args( ( void ) );
+
 /* save.c */
 void    save_char_obj    args( ( CHAR_DATA *ch ) );
 bool    load_char_obj    args( ( DESCRIPTOR_DATA *d, char *name ) );
@@ -2617,7 +2633,7 @@ bool     parse_gen_groups args( ( CHAR_DATA *ch,char *argument ) );
 void     list_group_costs args( ( CHAR_DATA *ch ) );
 void    list_group_known args( ( CHAR_DATA *ch ) );
 int     exp_per_level    args( ( CHAR_DATA *ch, int points ) );
-void     check_improve    args( ( CHAR_DATA *ch, int sn, bool success, 
+void     check_improve    args( ( CHAR_DATA *ch, int sn, bool success,
                     int multiplier ) );
 int     group_lookup    args( (const char *name) );
 void    gn_add        args( ( CHAR_DATA *ch, int gn) );
@@ -2721,4 +2737,3 @@ extern        char  str_empty [1];
 extern        MOB_INDEX_DATA  *    mob_index_hash  [MAX_KEY_HASH];
 extern        OBJ_INDEX_DATA  *    obj_index_hash  [MAX_KEY_HASH];
 extern        ROOM_INDEX_DATA *    room_index_hash [MAX_KEY_HASH];
-

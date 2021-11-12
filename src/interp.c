@@ -98,6 +98,7 @@ const struct cmd_type cmd_table[] = {
     {"music",     do_music,     POS_SLEEPING, 0,  LOG_NORMAL, 1},
     {"order",     do_order,     POS_RESTING,  0,  LOG_NORMAL, 1},
     {"practice",  do_practice,  POS_SLEEPING, 0,  LOG_NORMAL, 1},
+    {"quest",     do_quest,     POS_STANDING, 0,  LOG_NORMAL, 1},
     {"rest",      do_rest,      POS_SLEEPING, 0,  LOG_NORMAL, 1},
     {"sit",       do_sit,       POS_SLEEPING, 0,  LOG_NORMAL, 1},
     {"sockets",   do_sockets,   POS_DEAD,     L4, LOG_NORMAL, 1},
@@ -156,6 +157,7 @@ const struct cmd_type cmd_table[] = {
     {"autoloot", do_autoloot, POS_DEAD, 0, LOG_NORMAL, 1},
     {"autosac", do_autosac, POS_DEAD, 0, LOG_NORMAL, 1},
     {"autosplit", do_autosplit, POS_DEAD, 0, LOG_NORMAL, 1},
+    {"autotick", do_autotick, POS_DEAD, 0, LOG_NORMAL, 1},
     {"brief", do_brief, POS_DEAD, 0, LOG_NORMAL, 1},
 /*  { "channels",    do_channels,    POS_DEAD,     0,  LOG_NORMAL, 1 }, */
     {"colour",		do_colour,	POS_DEAD,	0, LOG_NORMAL, 1},
@@ -462,7 +464,7 @@ void interpret (CHAR_DATA * ch, char *argument)
      * Log and snoop.
      */
     smash_dollar(logline);
-    
+
     if (cmd_table[cmd].log == LOG_NEVER)
         strcpy (logline, "");
 
@@ -478,12 +480,12 @@ void interpret (CHAR_DATA * ch, char *argument)
     	char    s[2*MAX_INPUT_LENGTH],*ps;
     	int     i;
 
-    	ps=s; 
+    	ps=s;
     	sprintf( log_buf, "Log %s: %s", ch->name, logline );
     	/* Make sure that was is displayed is what is typed */
     	for (i=0;log_buf[i];i++)
-    	{ 
-			*ps++=log_buf[i];  
+    	{
+			*ps++=log_buf[i];
 			if (log_buf[i]=='$')
 	    		*ps++='$';
 			if (log_buf[i]=='{')
@@ -739,7 +741,7 @@ int number_argument (char *argument, char *arg)
     return 1;
 }
 
-/* 
+/*
  * Given a string like 14*foo, return 14 and 'foo'
 */
 int mult_argument (char *argument, char *arg)
