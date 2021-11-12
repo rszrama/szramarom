@@ -708,6 +708,12 @@ void do_autolist (CHAR_DATA * ch, char *argument)
     else
         send_to_char ("{ROFF{x\n\r", ch);
 
+    send_to_char ("autotick       ", ch);
+    if (IS_SET (ch->act, PLR_AUTOTICK))
+        send_to_char ("{GON{x\n\r", ch);
+    else
+        send_to_char ("{ROFF{x\n\r", ch);
+
     send_to_char ("telnetga       ", ch);
     if (IS_SET (ch->comm, COMM_TELNET_GA))
 	    send_to_char ("{GON{x\n\r", ch);
@@ -850,6 +856,23 @@ void do_autosplit (CHAR_DATA * ch, char *argument)
     }
 }
 
+void do_autotick (CHAR_DATA * ch, char *argument)
+{
+    if (IS_NPC (ch))
+        return;
+
+    if (IS_SET (ch->act, PLR_AUTOTICK))
+    {
+        send_to_char ("Autotick disabled.\n\r", ch);
+        REMOVE_BIT (ch->act, PLR_AUTOTICK);
+    }
+    else
+    {
+        send_to_char ("Autotick enabled.\n\r", ch);
+        SET_BIT (ch->act, PLR_AUTOTICK);
+    }
+}
+
 void do_autoall (CHAR_DATA *ch, char * argument)
 {
     if (IS_NPC(ch))
@@ -863,6 +886,7 @@ void do_autoall (CHAR_DATA *ch, char * argument)
         SET_BIT(ch->act,PLR_AUTOLOOT);
         SET_BIT(ch->act,PLR_AUTOSAC);
         SET_BIT(ch->act,PLR_AUTOSPLIT);
+        SET_BIT(ch->act,PLR_AUTOTICK);
 
         send_to_char("All autos turned on.\n\r",ch);
     }
@@ -874,6 +898,7 @@ void do_autoall (CHAR_DATA *ch, char * argument)
         REMOVE_BIT (ch->act, PLR_AUTOLOOT);
         REMOVE_BIT (ch->act, PLR_AUTOSAC);
         REMOVE_BIT (ch->act, PLR_AUTOSPLIT);
+        REMOVE_BIT (ch->act, PLR_AUTOTICK);
 
         send_to_char("All autos turned off.\n\r", ch);
     }

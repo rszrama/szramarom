@@ -874,6 +874,11 @@ void char_update (void)
         {
             damage (ch, ch, 1, TYPE_UNDEFINED, DAM_NONE, FALSE);
         }
+
+        if (IS_SET (ch->act, PLR_AUTOTICK))
+        {
+            send_to_char ("TICK.\n\r", ch);
+        }
     }
 
     /*

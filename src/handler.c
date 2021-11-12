@@ -2962,6 +2962,8 @@ char *act_bit_name (int act_flags)
             strcat (buf, " autogold");
         if (act_flags & PLR_AUTOSPLIT)
             strcat (buf, " autosplit");
+        if (act_flags & PLR_AUTOTICK)
+            strcat (buf, " autotick");
         if (act_flags & PLR_HOLYLIGHT)
             strcat (buf, " holy_light");
         if (act_flags & PLR_CANLOOT)

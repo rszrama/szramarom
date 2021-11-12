@@ -1398,6 +1398,7 @@ struct    kill_data
 #define PLR_AUTOSAC       (F)
 #define PLR_AUTOGOLD      (G)
 #define PLR_AUTOSPLIT     (H)
+#define PLR_AUTOTICK      (I)
 
 /* RT personal flags */
 #define PLR_HOLYLIGHT     (N)

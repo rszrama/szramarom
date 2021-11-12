@@ -157,6 +157,7 @@ const struct cmd_type cmd_table[] = {
     {"autoloot", do_autoloot, POS_DEAD, 0, LOG_NORMAL, 1},
     {"autosac", do_autosac, POS_DEAD, 0, LOG_NORMAL, 1},
     {"autosplit", do_autosplit, POS_DEAD, 0, LOG_NORMAL, 1},
+    {"autotick", do_autotick, POS_DEAD, 0, LOG_NORMAL, 1},
     {"brief", do_brief, POS_DEAD, 0, LOG_NORMAL, 1},
 /*  { "channels",    do_channels,    POS_DEAD,     0,  LOG_NORMAL, 1 }, */
     {"colour",		do_colour,	POS_DEAD,	0, LOG_NORMAL, 1},
