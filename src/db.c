@@ -676,7 +676,7 @@ void load_helps (FILE * fp, char *fname)
 
 
 /*
- * Snarf a mob section.  old style 
+ * Snarf a mob section.  old style
  */
 void load_old_mob (FILE * fp)
 {
@@ -823,7 +823,7 @@ void load_old_mob (FILE * fp)
 }
 
 /*
- * Snarf an obj section.  old style 
+ * Snarf an obj section.  old style
  */
 void load_old_obj (FILE * fp)
 {
@@ -2547,6 +2547,8 @@ void clear_char (CHAR_DATA * ch)
     ch->max_mana = 100;
     ch->move = 100;
     ch->max_move = 100;
+    ch->qp_current = 0;
+    ch->qp_total = 0;
     ch->on = NULL;
     for (i = 0; i < MAX_STATS; i++)
     {
@@ -3552,7 +3554,7 @@ int number_bits (int width)
  */
 
 /* I noticed streaking with this random number generator, so I switched
-   back to the system srandom call.  If this doesn't work for you, 
+   back to the system srandom call.  If this doesn't work for you,
    define OLD_RAND to use the old system -- Alander */
 
 #if defined (OLD_RAND)
@@ -3859,7 +3861,7 @@ void bug (const char *str, int param)
 
         sprintf (buf, "[*****] FILE: %s LINE: %d", strArea, iLine);
         log_string (buf);
-/* RT removed because we don't want bugs shutting the mud 
+/* RT removed because we don't want bugs shutting the mud
     if ( ( fp = fopen( "shutdown.txt", "a" ) ) != NULL )
     {
         fprintf( fp, "[*****] %s\n", buf );
@@ -3871,7 +3873,7 @@ void bug (const char *str, int param)
     strcpy (buf, "[*****] BUG: ");
     sprintf (buf + strlen (buf), str, param);
     log_string (buf);
-/* RT removed due to bug-file spamming 
+/* RT removed due to bug-file spamming
     fclose( fpReserve );
     if ( ( fp = fopen( BUG_FILE, "a" ) ) != NULL )
     {
@@ -3938,4 +3940,3 @@ bool check_pet_affected(int vnum, AFFECT_DATA *paf)
 
 				  return FALSE;
 }
-

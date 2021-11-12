@@ -155,7 +155,7 @@ int bind args ((int s, const void *addr, int addrlen));
 void bzero args ((char *b, int length));
 int getpeername args ((int s, void *addr, int *addrlen));
 int getsockname args ((int s, void *name, int *addrlen));
-int gettimeofday args ((struct timeval * tp, struct timezone * tzp));
+// int gettimeofday args ((struct timeval * tp, struct timezone * tzp));
 int listen args ((int s, int backlog));
 int setsockopt args ((int s, int level, int optname,
                       const void *optval, int optlen));
@@ -168,7 +168,7 @@ int socket args ((int domain, int type, int protocol));
 #endif
 
 #if    defined(linux)
-/* 
+/*
     Linux shouldn't need these. If you have a problem compiling, try
     uncommenting these functions.
 */
@@ -181,7 +181,7 @@ int    listen        args( ( int s, int backlog ) );
 */
 
 int close args ((int fd));
-int gettimeofday args ((struct timeval * tp, struct timezone * tzp));
+// int gettimeofday args ((struct timeval * tp, struct timezone * tzp));
 /* int    read        args( ( int fd, char *buf, int nbyte ) ); */
 int select args ((int width, fd_set * readfds, fd_set * writefds,
                   fd_set * exceptfds, struct timeval * timeout));
@@ -1518,6 +1518,23 @@ void bust_a_prompt (CHAR_DATA * ch)
                 sprintf (buf2, "%ld", ch->silver);
                 i = buf2;
                 break;
+            case 'q':
+                sprintf (buf2, "%d", ch->qp_current);
+                i = buf2;
+                break;
+            case 'Q':
+                sprintf (buf2, "%d", ch->qp_total);
+                i = buf2;
+                break;
+            case 't':
+                if (ch->countdown > 0)
+                    sprintf (buf2, "%d", ch->countdown);
+                else if (ch->nextquest > 0)
+                    sprintf (buf2, "%d", ch->nextquest);
+                else
+                    sprintf (buf2, "0");
+                i = buf2;
+                break;
             case 'a':
                 if (ch->level > 9)
                     sprintf (buf2, "%d", ch->alignment);
@@ -1786,7 +1803,7 @@ bool check_parse_name (char *name)
 
     /*
      * Edwin's been here too. JR -- 10/15/00
-     * 
+     *
      * Check names of people playing. Yes, this is necessary for multiple
      * newbies with the same name (thanks Saro)
      */
